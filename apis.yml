@@ -38,3 +38,20 @@ maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.19'
+common:
+  - name: kgateway
+    description: 'null'
+    url: https://kgateway.dev/
+    type: Website
+  - name: Videos – kgateway
+    description: 'null'
+    url: https://kgateway.dev/resources/videos/
+    type: Videos
+  - name: Blog – kgateway
+    description: 'null'
+    url: https://kgateway.dev/blog/
+    type: Blog
+  - name: Kgateway 2.1.x – kgateway
+    description: 'null'
+    url: https://kgateway.dev/docs/envoy/latest/
+    type: Documentation
