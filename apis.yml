@@ -1,31 +1,40 @@
 aid: kgateway
-name: kgateway
-description: >-
-  The most widely deployed gateway in Kubernetes for microservices and AI
-  agents 
-type: Index
-position: Consumer
-access: 3rd-Party
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-tags:
-  - API
-created: '2026-01-02'
-modified: '2026-01-02'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml
-specificationVersion: '0.19'
 apis:
   - aid: kgateway:kgateway
     name: kgateway
+    tags:
+      - Gateways
+    humanURL: ' https://kgateway.dev/'
+    properties:
+      - url: ' https://kgateway.dev/'
+        type: Documentation
     description: >-
       The most widely deployed gateway in Kubernetes for microservices and AI
       agents 
-    humanURL: ' https://kgateway.dev/'
-    tags:
-      - API
-    properties:
-      - type: Documentation
-        url: ' https://kgateway.dev/'
+name: kgateway
+tags:
+  - Gateways
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2026-01-02'
+modified: '2026-01-02'
+position: Consumer
+description: >-
+  KGateway is a software company that specializes in creating innovative
+  solutions for businesses looking to streamline their operations and improve
+  efficiency. With a focus on providing cutting-edge technology and top-notch
+  customer service, KGateway offers a range of services including software
+  development, data analytics, and system integration. By harnessing the power
+  of data and technology, KGateway helps companies make informed decisions and
+  stay ahead of the competition. Their team of skilled professionals works
+  closely with clients to understand their unique needs and develop customized
+  solutions that drive real results. Whether it's optimizing workflows,
+  improving data management, or enhancing customer experience, KGateway is
+  dedicated to helping businesses thrive in an increasingly digital world.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
+specificationVersion: '0.19'
