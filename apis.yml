@@ -2,17 +2,29 @@ aid: kgateway
 url: >-
   https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml
 apis:
-  - aid: kgateway:kgateway
-    name: kgateway
+  - aid: kgateway:kgateway-kubernetes-gateway-api
+    name: kgateway Kubernetes Gateway API
     tags:
       - Gateways
-    humanURL: ' https://kgateway.dev/'
+      - Kubernetes
+      - Envoy
+      - API Gateway
+      - AI Gateway
+      - Traffic Management
+    humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+    baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
     properties:
-      - url: ' https://kgateway.dev/'
+      - url: https://kgateway.dev/docs/envoy/latest/reference/api/
         type: Documentation
+      - url: openapi/kgateway-kubernetes-gateway-api-openapi.yml
+        type: OpenAPI
     description: >-
-      The most widely deployed gateway in Kubernetes for microservices and AI
-      agents 
+      The kgateway Kubernetes Gateway API provides custom resource definitions
+      (CRDs) under the gateway.kgateway.dev/v1alpha1 API group for managing
+      traffic policies, backends, direct responses, gateway extensions, gateway
+      parameters, HTTP listener policies, and AI backends. kgateway is built on
+      Envoy proxy and implements the Kubernetes Gateway API for microservices
+      and AI agent traffic management.
 name: kgateway
 tags:
   - Gateways
@@ -20,20 +32,20 @@ type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-01-02'
-modified: '2026-01-02'
+modified: '2026-03-14'
 position: Consumer
 description: >-
-  KGateway is a software company that specializes in creating innovative
-  solutions for businesses looking to streamline their operations and improve
-  efficiency. With a focus on providing cutting-edge technology and top-notch
-  customer service, KGateway offers a range of services including software
-  development, data analytics, and system integration. By harnessing the power
-  of data and technology, KGateway helps companies make informed decisions and
-  stay ahead of the competition. Their team of skilled professionals works
-  closely with clients to understand their unique needs and develop customized
-  solutions that drive real results. Whether it's optimizing workflows,
-  improving data management, or enhancing customer experience, KGateway is
-  dedicated to helping businesses thrive in an increasingly digital world.
+  kgateway is the most widely deployed gateway in Kubernetes for microservices
+  and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native
+  ingress controller and next-generation API gateway built on top of Envoy proxy
+  and the Kubernetes Gateway API. Originally born as Gloo in 2018, kgateway
+  provides a resilient and performance-oriented control plane that scales from
+  lightweight microgateway deployments between services to massively parallel
+  centralized gateways handling billions of API calls. The project provides
+  custom resource definitions for traffic management, backend routing (including
+  AI providers like OpenAI, Azure, and Gemini), direct responses, gateway
+  extensions for external auth and rate limiting, and infrastructure
+  configuration.
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
@@ -55,3 +67,7 @@ common:
     description: 'null'
     url: https://kgateway.dev/docs/envoy/latest/
     type: Documentation
+  - name: GitHub Repository
+    description: 'null'
+    url: https://github.com/kgateway-dev/kgateway
+    type: GitHub

@@ -1,0 +1,1966 @@
+openapi: 3.1.0
+info:
+  title: kgateway Kubernetes Gateway API
+  description: >-
+    kgateway is the most widely deployed gateway in Kubernetes for microservices
+    and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native
+    ingress controller and next-generation API gateway built on top of Envoy
+    proxy and the Kubernetes Gateway API. kgateway provides custom resource
+    definitions (CRDs) under the gateway.kgateway.dev API group for configuring
+    traffic policies, backends, direct responses, gateway extensions, gateway
+    parameters, HTTP listener policies, and AI backends. These resources are
+    managed through the Kubernetes API server.
+  version: 2.1.0
+  contact:
+    name: kgateway
+    url: https://kgateway.dev
+  license:
+    name: Apache 2.0
+    url: https://github.com/kgateway-dev/kgateway/blob/main/LICENSE
+externalDocs:
+  description: kgateway API Reference Documentation
+  url: https://kgateway.dev/docs/envoy/latest/reference/api/
+servers:
+  - url: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: Kubernetes API Server - kgateway Custom Resources
+    variables:
+      kubernetes-api-server:
+        default: kubernetes.default.svc
+        description: The Kubernetes API server hostname
+tags:
+  - name: TrafficPolicy
+    description: >-
+      Attach traffic management policies to routes in an HTTPRoute resource or
+      all routes served by a Gateway. Supports CORS, external auth, external
+      processing, rate limiting, timeouts, retries, transformations, and header
+      modifiers.
+  - name: Backend
+    description: >-
+      Define routable backends such as AI providers (OpenAI, Azure, Gemini),
+      AWS Lambda functions, or static servers for use by Gateways. Reference
+      Backend resources in HTTPRoute to route traffic to external services.
+  - name: DirectResponse
+    description: >-
+      Configure Gateways to directly respond to incoming requests with a custom
+      HTTP response code and body without forwarding to a backend service.
+  - name: GatewayExtension
+    description: >-
+      Integrate external services with a Gateway such as external auth, rate
+      limiting, and external processing. Serves as a configuration bridge
+      between kgateway and external services that extend Gateway functionality.
+  - name: GatewayParameters
+    description: >-
+      Customize gateway infrastructure deployment settings including replicas,
+      container configuration, pod templates, and proxy provisioning parameters.
+  - name: HTTPListenerPolicy
+    description: >-
+      Apply policies to all HTTP and HTTPS listeners defined on a Gateway.
+      Configure listener-level settings that affect all traffic passing through
+      the specified listeners.
+  - name: ListenerPolicy
+    description: >-
+      Apply generic policies to Gateway listeners for cross-cutting concerns
+      that apply at the listener level.
+  - name: BackendConfigPolicy
+    description: >-
+      Configure backend-specific settings and policies for how traffic is
+      handled when communicating with backend services.
+  - name: AIBackend
+    description: >-
+      Configure AI backend providers with support for LLM providers such as
+      OpenAI, Azure OpenAI, and Gemini. Specify provider configuration and
+      priority groups for AI routing.
+paths:
+  /namespaces/{namespace}/trafficpolicies:
+    get:
+      operationId: listTrafficPolicies
+      summary: List TrafficPolicy resources
+      description: List all TrafficPolicy resources in the specified namespace.
+      tags:
+        - TrafficPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of TrafficPolicy resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficPolicyList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createTrafficPolicy
+      summary: Create a TrafficPolicy
+      description: >-
+        Create a TrafficPolicy resource to attach traffic management policies to
+        routes in an HTTPRoute resource.
+      tags:
+        - TrafficPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrafficPolicy'
+      responses:
+        '201':
+          description: Successfully created TrafficPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficPolicy'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/trafficpolicies/{name}:
+    get:
+      operationId: getTrafficPolicy
+      summary: Get a TrafficPolicy
+      description: Retrieve a specific TrafficPolicy resource by name and namespace.
+      tags:
+        - TrafficPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved TrafficPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficPolicy'
+        '401':
+          description: Unauthorized
+        '404':
+          description: TrafficPolicy not found
+    put:
+      operationId: replaceTrafficPolicy
+      summary: Replace a TrafficPolicy
+      description: Replace a specific TrafficPolicy resource.
+      tags:
+        - TrafficPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrafficPolicy'
+      responses:
+        '200':
+          description: Successfully replaced TrafficPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficPolicy'
+        '401':
+          description: Unauthorized
+        '404':
+          description: TrafficPolicy not found
+    delete:
+      operationId: deleteTrafficPolicy
+      summary: Delete a TrafficPolicy
+      description: Delete a specific TrafficPolicy resource.
+      tags:
+        - TrafficPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted TrafficPolicy.
+        '401':
+          description: Unauthorized
+        '404':
+          description: TrafficPolicy not found
+  /namespaces/{namespace}/backends:
+    get:
+      operationId: listBackends
+      summary: List Backend resources
+      description: >-
+        List all Backend resources in the specified namespace. Backends define
+        routable external services such as AI providers, AWS Lambda functions,
+        or static servers.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of Backend resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackendList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createBackend
+      summary: Create a Backend
+      description: >-
+        Create a Backend resource to define a routable backend such as an AI
+        provider, AWS Lambda function, or static server.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '201':
+          description: Successfully created Backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/backends/{name}:
+    get:
+      operationId: getBackend
+      summary: Get a Backend
+      description: Retrieve a specific Backend resource by name and namespace.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved Backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Backend not found
+    put:
+      operationId: replaceBackend
+      summary: Replace a Backend
+      description: Replace a specific Backend resource.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Backend'
+      responses:
+        '200':
+          description: Successfully replaced Backend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Backend not found
+    delete:
+      operationId: deleteBackend
+      summary: Delete a Backend
+      description: Delete a specific Backend resource.
+      tags:
+        - Backend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted Backend.
+        '401':
+          description: Unauthorized
+        '404':
+          description: Backend not found
+  /namespaces/{namespace}/directresponses:
+    get:
+      operationId: listDirectResponses
+      summary: List DirectResponse resources
+      description: >-
+        List all DirectResponse resources in the specified namespace.
+        DirectResponse resources allow Gateways to directly respond to requests
+        with custom HTTP response codes and bodies.
+      tags:
+        - DirectResponse
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of DirectResponse resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectResponseList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createDirectResponse
+      summary: Create a DirectResponse
+      description: >-
+        Create a DirectResponse resource to configure a Gateway to directly
+        respond to incoming requests with a custom HTTP response.
+      tags:
+        - DirectResponse
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectResponse'
+      responses:
+        '201':
+          description: Successfully created DirectResponse.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectResponse'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/directresponses/{name}:
+    get:
+      operationId: getDirectResponse
+      summary: Get a DirectResponse
+      description: Retrieve a specific DirectResponse resource by name and namespace.
+      tags:
+        - DirectResponse
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved DirectResponse.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: DirectResponse not found
+    put:
+      operationId: replaceDirectResponse
+      summary: Replace a DirectResponse
+      description: Replace a specific DirectResponse resource.
+      tags:
+        - DirectResponse
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectResponse'
+      responses:
+        '200':
+          description: Successfully replaced DirectResponse.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DirectResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: DirectResponse not found
+    delete:
+      operationId: deleteDirectResponse
+      summary: Delete a DirectResponse
+      description: Delete a specific DirectResponse resource.
+      tags:
+        - DirectResponse
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted DirectResponse.
+        '401':
+          description: Unauthorized
+        '404':
+          description: DirectResponse not found
+  /namespaces/{namespace}/gatewayextensions:
+    get:
+      operationId: listGatewayExtensions
+      summary: List GatewayExtension resources
+      description: >-
+        List all GatewayExtension resources in the specified namespace.
+        GatewayExtensions integrate external services with a Gateway.
+      tags:
+        - GatewayExtension
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of GatewayExtension resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayExtensionList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createGatewayExtension
+      summary: Create a GatewayExtension
+      description: >-
+        Create a GatewayExtension resource to integrate external services such
+        as external auth, rate limiting, or external processing with a Gateway.
+      tags:
+        - GatewayExtension
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayExtension'
+      responses:
+        '201':
+          description: Successfully created GatewayExtension.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayExtension'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/gatewayextensions/{name}:
+    get:
+      operationId: getGatewayExtension
+      summary: Get a GatewayExtension
+      description: Retrieve a specific GatewayExtension resource by name and namespace.
+      tags:
+        - GatewayExtension
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved GatewayExtension.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayExtension'
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayExtension not found
+    put:
+      operationId: replaceGatewayExtension
+      summary: Replace a GatewayExtension
+      description: Replace a specific GatewayExtension resource.
+      tags:
+        - GatewayExtension
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayExtension'
+      responses:
+        '200':
+          description: Successfully replaced GatewayExtension.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayExtension'
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayExtension not found
+    delete:
+      operationId: deleteGatewayExtension
+      summary: Delete a GatewayExtension
+      description: Delete a specific GatewayExtension resource.
+      tags:
+        - GatewayExtension
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted GatewayExtension.
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayExtension not found
+  /namespaces/{namespace}/gatewayparameters:
+    get:
+      operationId: listGatewayParameters
+      summary: List GatewayParameters resources
+      description: >-
+        List all GatewayParameters resources in the specified namespace.
+        GatewayParameters customize gateway infrastructure deployment settings.
+      tags:
+        - GatewayParameters
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of GatewayParameters resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayParametersList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createGatewayParameters
+      summary: Create GatewayParameters
+      description: >-
+        Create a GatewayParameters resource to customize gateway infrastructure
+        deployment settings including replicas, container configuration, and
+        proxy provisioning parameters.
+      tags:
+        - GatewayParameters
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayParameters'
+      responses:
+        '201':
+          description: Successfully created GatewayParameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayParameters'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/gatewayparameters/{name}:
+    get:
+      operationId: getGatewayParameters
+      summary: Get GatewayParameters
+      description: Retrieve a specific GatewayParameters resource by name and namespace.
+      tags:
+        - GatewayParameters
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved GatewayParameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayParameters'
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayParameters not found
+    put:
+      operationId: replaceGatewayParameters
+      summary: Replace GatewayParameters
+      description: Replace a specific GatewayParameters resource.
+      tags:
+        - GatewayParameters
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GatewayParameters'
+      responses:
+        '200':
+          description: Successfully replaced GatewayParameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GatewayParameters'
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayParameters not found
+    delete:
+      operationId: deleteGatewayParameters
+      summary: Delete GatewayParameters
+      description: Delete a specific GatewayParameters resource.
+      tags:
+        - GatewayParameters
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted GatewayParameters.
+        '401':
+          description: Unauthorized
+        '404':
+          description: GatewayParameters not found
+  /namespaces/{namespace}/httplistenerpolicies:
+    get:
+      operationId: listHTTPListenerPolicies
+      summary: List HTTPListenerPolicy resources
+      description: >-
+        List all HTTPListenerPolicy resources in the specified namespace.
+        HTTPListenerPolicies apply policies to all HTTP and HTTPS listeners on
+        a Gateway.
+      tags:
+        - HTTPListenerPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of HTTPListenerPolicy resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPListenerPolicyList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createHTTPListenerPolicy
+      summary: Create an HTTPListenerPolicy
+      description: >-
+        Create an HTTPListenerPolicy resource to apply policies to all HTTP and
+        HTTPS listeners defined on a Gateway.
+      tags:
+        - HTTPListenerPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPListenerPolicy'
+      responses:
+        '201':
+          description: Successfully created HTTPListenerPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPListenerPolicy'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/httplistenerpolicies/{name}:
+    get:
+      operationId: getHTTPListenerPolicy
+      summary: Get an HTTPListenerPolicy
+      description: >-
+        Retrieve a specific HTTPListenerPolicy resource by name and namespace.
+      tags:
+        - HTTPListenerPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved HTTPListenerPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPListenerPolicy'
+        '401':
+          description: Unauthorized
+        '404':
+          description: HTTPListenerPolicy not found
+    put:
+      operationId: replaceHTTPListenerPolicy
+      summary: Replace an HTTPListenerPolicy
+      description: Replace a specific HTTPListenerPolicy resource.
+      tags:
+        - HTTPListenerPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPListenerPolicy'
+      responses:
+        '200':
+          description: Successfully replaced HTTPListenerPolicy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPListenerPolicy'
+        '401':
+          description: Unauthorized
+        '404':
+          description: HTTPListenerPolicy not found
+    delete:
+      operationId: deleteHTTPListenerPolicy
+      summary: Delete an HTTPListenerPolicy
+      description: Delete a specific HTTPListenerPolicy resource.
+      tags:
+        - HTTPListenerPolicy
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted HTTPListenerPolicy.
+        '401':
+          description: Unauthorized
+        '404':
+          description: HTTPListenerPolicy not found
+  /namespaces/{namespace}/aibackends:
+    get:
+      operationId: listAIBackends
+      summary: List AIBackend resources
+      description: >-
+        List all AIBackend resources in the specified namespace. AIBackends
+        configure AI provider backends such as OpenAI, Azure OpenAI, and
+        Gemini for AI gateway routing.
+      tags:
+        - AIBackend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/LabelSelector'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of AIBackend resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackendList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createAIBackend
+      summary: Create an AIBackend
+      description: >-
+        Create an AIBackend resource to configure an AI provider backend with
+        LLM provider settings and priority groups.
+      tags:
+        - AIBackend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIBackend'
+      responses:
+        '201':
+          description: Successfully created AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/aibackends/{name}:
+    get:
+      operationId: getAIBackend
+      summary: Get an AIBackend
+      description: Retrieve a specific AIBackend resource by name and namespace.
+      tags:
+        - AIBackend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+    put:
+      operationId: replaceAIBackend
+      summary: Replace an AIBackend
+      description: Replace a specific AIBackend resource.
+      tags:
+        - AIBackend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIBackend'
+      responses:
+        '200':
+          description: Successfully replaced AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+    delete:
+      operationId: deleteAIBackend
+      summary: Delete an AIBackend
+      description: Delete a specific AIBackend resource.
+      tags:
+        - AIBackend
+      parameters:
+        - $ref: '#/components/parameters/Namespace'
+        - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted AIBackend.
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+components:
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+  schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: >-
+            An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
+    PolicyTargetRef:
+      type: object
+      description: Reference to a target resource for policy attachment.
+      properties:
+        group:
+          type: string
+          description: Group is the group of the target resource.
+          default: gateway.networking.k8s.io
+        kind:
+          type: string
+          description: Kind is the kind of the target resource.
+          enum:
+            - Gateway
+            - HTTPRoute
+        name:
+          type: string
+          description: Name is the name of the target resource.
+        namespace:
+          type: string
+          description: Namespace is the namespace of the target resource.
+        sectionName:
+          type: string
+          description: >-
+            SectionName is the name of a section within the target resource
+            to apply the policy to.
+      required:
+        - kind
+        - name
+    TrafficPolicy:
+      type: object
+      description: >-
+        TrafficPolicy attaches traffic management policies to routes in an
+        HTTPRoute or all routes served by a Gateway.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - TrafficPolicy
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: TrafficPolicySpec defines the desired state of a TrafficPolicy.
+          properties:
+            targetRefs:
+              type: array
+              description: >-
+                References to the target resources to which this policy applies.
+              items:
+                $ref: '#/components/schemas/PolicyTargetRef'
+            cors:
+              type: object
+              description: CORS policy configuration.
+              properties:
+                allowOrigins:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                          - Exact
+                          - Prefix
+                          - Regex
+                      value:
+                        type: string
+                allowMethods:
+                  type: array
+                  items:
+                    type: string
+                allowHeaders:
+                  type: array
+                  items:
+                    type: string
+                exposeHeaders:
+                  type: array
+                  items:
+                    type: string
+                maxAge:
+                  type: string
+                  description: Maximum time a preflight request can be cached.
+                allowCredentials:
+                  type: boolean
+            extAuth:
+              type: object
+              description: External authentication configuration.
+              properties:
+                extensionRef:
+                  type: object
+                  description: Reference to a GatewayExtension for external auth.
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                disable:
+                  type: boolean
+                  description: Disable external auth for this route.
+            extProc:
+              type: object
+              description: External processing configuration.
+              properties:
+                extensionRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                disable:
+                  type: boolean
+                  description: Disable external processing for this route.
+            rateLimit:
+              type: object
+              description: Rate limiting configuration.
+              properties:
+                extensionRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                disable:
+                  type: boolean
+            timeout:
+              type: object
+              description: Timeout configuration for requests.
+              properties:
+                request:
+                  type: string
+                  description: >-
+                    Maximum duration for the entire request. Uses Go duration
+                    format (e.g., 30s, 1m).
+                idle:
+                  type: string
+                  description: Maximum duration for idle connections.
+            retries:
+              type: object
+              description: Retry configuration for failed requests.
+              properties:
+                attempts:
+                  type: integer
+                  description: Maximum number of retry attempts.
+                perTryTimeout:
+                  type: string
+                  description: Timeout per retry attempt.
+                backOff:
+                  type: object
+                  properties:
+                    baseInterval:
+                      type: string
+                    maxInterval:
+                      type: string
+                retryOn:
+                  type: string
+                  description: >-
+                    Conditions for retry, comma-separated (e.g.,
+                    connect-failure,refused-stream,5xx).
+            requestHeaderModifier:
+              type: object
+              description: Modify request headers.
+              properties:
+                set:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
+                add:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
+                remove:
+                  type: array
+                  items:
+                    type: string
+            responseHeaderModifier:
+              type: object
+              description: Modify response headers.
+              properties:
+                set:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
+                add:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      value:
+                        type: string
+                remove:
+                  type: array
+                  items:
+                    type: string
+          required:
+            - targetRefs
+        status:
+          type: object
+          description: Status of the TrafficPolicy.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                    enum:
+                      - 'True'
+                      - 'False'
+                      - Unknown
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    TrafficPolicyList:
+      type: object
+      description: List of TrafficPolicy resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - TrafficPolicyList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficPolicy'
+    Backend:
+      type: object
+      description: >-
+        Backend defines a routable backend such as an AI provider, AWS Lambda
+        function, or static server for use by Gateways.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - Backend
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: BackendSpec defines the desired state of a Backend.
+          properties:
+            type:
+              type: string
+              description: Type of the backend.
+              enum:
+                - Static
+                - AWS
+                - AI
+            static:
+              type: object
+              description: Static backend configuration.
+              properties:
+                hosts:
+                  type: array
+                  description: List of static hosts.
+                  items:
+                    type: object
+                    properties:
+                      host:
+                        type: string
+                        description: Hostname or IP address.
+                      port:
+                        type: integer
+                        description: Port number.
+                      tls:
+                        type: object
+                        description: TLS configuration for the host.
+                        properties:
+                          sni:
+                            type: string
+            aws:
+              type: object
+              description: AWS Lambda backend configuration.
+              properties:
+                region:
+                  type: string
+                  description: AWS region.
+                lambdaFunctionName:
+                  type: string
+                  description: Name of the AWS Lambda function.
+                accountId:
+                  type: string
+                  description: AWS account ID.
+                roleArn:
+                  type: string
+                  description: ARN of the IAM role to assume.
+            ai:
+              type: object
+              description: AI provider backend configuration.
+              properties:
+                provider:
+                  type: object
+                  description: Configuration for the LLM provider.
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - openai
+                        - azure
+                        - gemini
+                        - mistral
+                    openai:
+                      type: object
+                      properties:
+                        authToken:
+                          type: object
+                          properties:
+                            secretRef:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                namespace:
+                                  type: string
+                    azure:
+                      type: object
+                      properties:
+                        endpoint:
+                          type: string
+                        deploymentName:
+                          type: string
+                        apiVersion:
+                          type: string
+                        authToken:
+                          type: object
+                          properties:
+                            secretRef:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                namespace:
+                                  type: string
+                    gemini:
+                      type: object
+                      properties:
+                        authToken:
+                          type: object
+                          properties:
+                            secretRef:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                namespace:
+                                  type: string
+        status:
+          type: object
+          description: Status of the Backend.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    BackendList:
+      type: object
+      description: List of Backend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - BackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend'
+    DirectResponse:
+      type: object
+      description: >-
+        DirectResponse configures a Gateway to directly respond to incoming
+        requests with a custom HTTP response code and body.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - DirectResponse
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: DirectResponseSpec defines the desired state of a DirectResponse.
+          properties:
+            statusCode:
+              type: integer
+              description: HTTP status code to return.
+              minimum: 200
+              maximum: 599
+            body:
+              type: string
+              description: Response body to return.
+          required:
+            - statusCode
+        status:
+          type: object
+          description: Status of the DirectResponse.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    DirectResponseList:
+      type: object
+      description: List of DirectResponse resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - DirectResponseList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectResponse'
+    GatewayExtension:
+      type: object
+      description: >-
+        GatewayExtension integrates external services with a Gateway such as
+        external auth, rate limiting, and external processing.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - GatewayExtension
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: >-
+            GatewayExtensionSpec defines the desired state of a GatewayExtension.
+          properties:
+            type:
+              type: string
+              description: Type of the gateway extension.
+              enum:
+                - ExtAuth
+                - ExtProc
+                - RateLimit
+            extAuth:
+              type: object
+              description: External auth extension configuration.
+              properties:
+                grpcService:
+                  type: object
+                  properties:
+                    backendRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        port:
+                          type: integer
+            extProc:
+              type: object
+              description: External processing extension configuration.
+              properties:
+                grpcService:
+                  type: object
+                  properties:
+                    backendRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        port:
+                          type: integer
+            rateLimit:
+              type: object
+              description: Rate limit extension configuration.
+              properties:
+                grpcService:
+                  type: object
+                  properties:
+                    backendRef:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        namespace:
+                          type: string
+                        port:
+                          type: integer
+        status:
+          type: object
+          description: Status of the GatewayExtension.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    GatewayExtensionList:
+      type: object
+      description: List of GatewayExtension resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - GatewayExtensionList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayExtension'
+    GatewayParameters:
+      type: object
+      description: >-
+        GatewayParameters customizes gateway infrastructure deployment settings
+        including replicas, container configuration, and proxy provisioning.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - GatewayParameters
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: >-
+            GatewayParametersSpec defines the desired state of GatewayParameters.
+          properties:
+            kube:
+              type: object
+              description: Kubernetes deployment settings.
+              properties:
+                deployment:
+                  type: object
+                  properties:
+                    replicas:
+                      type: integer
+                      description: Number of gateway proxy replicas.
+                podTemplate:
+                  type: object
+                  description: Pod template configuration.
+                  properties:
+                    extraLabels:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    extraAnnotations:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    nodeSelector:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    tolerations:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            type: string
+                          operator:
+                            type: string
+                          value:
+                            type: string
+                          effect:
+                            type: string
+                envoyContainer:
+                  type: object
+                  description: Envoy proxy container configuration.
+                  properties:
+                    resources:
+                      type: object
+                      properties:
+                        requests:
+                          type: object
+                          properties:
+                            cpu:
+                              type: string
+                            memory:
+                              type: string
+                        limits:
+                          type: object
+                          properties:
+                            cpu:
+                              type: string
+                            memory:
+                              type: string
+                    image:
+                      type: object
+                      properties:
+                        registry:
+                          type: string
+                        repository:
+                          type: string
+                        tag:
+                          type: string
+                service:
+                  type: object
+                  description: Service configuration.
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                        - ClusterIP
+                        - NodePort
+                        - LoadBalancer
+                    extraAnnotations:
+                      type: object
+                      additionalProperties:
+                        type: string
+        status:
+          type: object
+          description: Status of the GatewayParameters.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    GatewayParametersList:
+      type: object
+      description: List of GatewayParameters resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - GatewayParametersList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayParameters'
+    HTTPListenerPolicy:
+      type: object
+      description: >-
+        HTTPListenerPolicy applies policies to all HTTP and HTTPS listeners
+        on a Gateway.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - HTTPListenerPolicy
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: >-
+            HTTPListenerPolicySpec defines the desired state of an
+            HTTPListenerPolicy.
+          properties:
+            targetRefs:
+              type: array
+              description: >-
+                References to the Gateway listeners to which this policy applies.
+              items:
+                $ref: '#/components/schemas/PolicyTargetRef'
+            accessLogging:
+              type: object
+              description: Access logging configuration.
+            buffer:
+              type: object
+              description: Request buffering configuration.
+              properties:
+                maxRequestBytes:
+                  type: integer
+                  description: Maximum request body size in bytes.
+            celValidation:
+              type: object
+              description: CEL-based request validation.
+              properties:
+                rules:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      expression:
+                        type: string
+                        description: CEL expression to evaluate.
+                      action:
+                        type: string
+                        enum:
+                          - Deny
+                          - Allow
+            basicAuth:
+              type: object
+              description: Basic authentication configuration.
+              properties:
+                credentialsSecretRef:
+                  type: object
+                  description: >-
+                    Reference to a Kubernetes secret containing htpasswd-format
+                    credentials.
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+          required:
+            - targetRefs
+        status:
+          type: object
+          description: Status of the HTTPListenerPolicy.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    HTTPListenerPolicyList:
+      type: object
+      description: List of HTTPListenerPolicy resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - HTTPListenerPolicyList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPListenerPolicy'
+    AIBackend:
+      type: object
+      description: >-
+        AIBackend configures AI provider backends with support for LLM providers
+        such as OpenAI, Azure OpenAI, and Gemini.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+            - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+            - AIBackend
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: AIBackendSpec defines the desired state of an AIBackend.
+          properties:
+            provider:
+              type: object
+              description: Configuration for the LLM provider.
+              properties:
+                type:
+                  type: string
+                  description: The type of LLM provider.
+                  enum:
+                    - openai
+                    - azure
+                    - gemini
+                    - mistral
+                openai:
+                  type: object
+                  properties:
+                    model:
+                      type: string
+                      description: Model name to use.
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                azure:
+                  type: object
+                  properties:
+                    endpoint:
+                      type: string
+                    deploymentName:
+                      type: string
+                    apiVersion:
+                      type: string
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                gemini:
+                  type: object
+                  properties:
+                    model:
+                      type: string
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+            groups:
+              type: array
+              description: >-
+                List of groups in priority order where each group defines a set
+                of LLM providers.
+              items:
+                type: object
+                properties:
+                  priority:
+                    type: integer
+                    description: Priority of this group (lower is higher priority).
+                  backends:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        backendRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                        weight:
+                          type: integer
+                          description: Weight for load balancing within the group.
+        status:
+          type: object
+          description: Status of the AIBackend.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    AIBackendList:
+      type: object
+      description: List of AIBackend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+            - AIBackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIBackend'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        Kubernetes API bearer token authentication. Use a service account
+        token or kubeconfig token.
+security:
+  - BearerAuth: []
