@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/http-listener-policy.json",
+  "title": "kgateway HTTPListenerPolicy",
+  "description": "HTTPListenerPolicy applies policies to all HTTP and HTTPS listeners on a Gateway, configuring the Envoy HttpConnectionManager and other listener-level settings.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the HTTPListenerPolicy resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "HTTPListenerPolicy",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the HTTPListenerPolicy resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the HTTPListenerPolicy resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "HTTPListenerPolicySpec defines the desired state of an HTTPListenerPolicy.",
+      "properties": {
+        "targetRefs": {
+          "type": "array",
+          "description": "References to the Gateway listeners to which this policy applies.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": { "type": "string" },
+              "kind": { "type": "string" },
+              "name": { "type": "string" }
+            },
+            "required": ["kind", "name"]
+          }
+        },
+        "accessLogging": {
+          "type": "object",
+          "description": "Access logging configuration."
+        },
+        "buffer": {
+          "type": "object",
+          "description": "Request buffering configuration.",
+          "properties": {
+            "maxRequestBytes": {
+              "type": "integer",
+              "description": "Maximum request body size in bytes."
+            }
+          }
+        },
+        "celValidation": {
+          "type": "object",
+          "description": "CEL-based request validation.",
+          "properties": {
+            "rules": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "CEL expression to evaluate."
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["Deny", "Allow"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "basicAuth": {
+          "type": "object",
+          "description": "Basic authentication configuration.",
+          "properties": {
+            "credentialsSecretRef": {
+              "type": "object",
+              "description": "Reference to a Kubernetes secret containing htpasswd-format credentials.",
+              "properties": {
+                "name": { "type": "string" },
+                "namespace": { "type": "string" }
+              }
+            }
+          }
+        }
+      },
+      "required": ["targetRefs"]
+    }
+  }
+}

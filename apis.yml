@@ -18,6 +18,22 @@ apis:
         type: Documentation
       - url: openapi/kgateway-kubernetes-gateway-api-openapi.yml
         type: OpenAPI
+      - url: json-schema/traffic-policy.json
+        type: JSONSchema
+      - url: json-schema/backend.json
+        type: JSONSchema
+      - url: json-schema/direct-response.json
+        type: JSONSchema
+      - url: json-schema/gateway-extension.json
+        type: JSONSchema
+      - url: json-schema/gateway-parameters.json
+        type: JSONSchema
+      - url: json-schema/http-listener-policy.json
+        type: JSONSchema
+      - url: json-schema/ai-backend.json
+        type: JSONSchema
+      - url: json-ld/kgateway-context.jsonld
+        type: JSONLD
     description: >-
       The kgateway Kubernetes Gateway API provides custom resource definitions
       (CRDs) under the gateway.kgateway.dev/v1alpha1 API group for managing

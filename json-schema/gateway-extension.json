@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/gateway-extension.json",
+  "title": "kgateway GatewayExtension",
+  "description": "GatewayExtension integrates external services with a Gateway such as external auth, rate limiting, and external processing.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the GatewayExtension resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "GatewayExtension",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the GatewayExtension resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the GatewayExtension resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "GatewayExtensionSpec defines the desired state of a GatewayExtension.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of the gateway extension.",
+          "enum": ["ExtAuth", "ExtProc", "RateLimit"]
+        },
+        "extAuth": {
+          "type": "object",
+          "description": "External auth extension configuration.",
+          "properties": {
+            "grpcService": {
+              "$ref": "#/$defs/GrpcService"
+            }
+          }
+        },
+        "extProc": {
+          "type": "object",
+          "description": "External processing extension configuration.",
+          "properties": {
+            "grpcService": {
+              "$ref": "#/$defs/GrpcService"
+            }
+          }
+        },
+        "rateLimit": {
+          "type": "object",
+          "description": "Rate limit extension configuration.",
+          "properties": {
+            "grpcService": {
+              "$ref": "#/$defs/GrpcService"
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "GrpcService": {
+      "type": "object",
+      "properties": {
+        "backendRef": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "namespace": { "type": "string" },
+            "port": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}

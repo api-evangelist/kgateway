@@ -1,0 +1,91 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "kgateway": "https://kgateway.dev/docs/envoy/latest/reference/api/",
+    "TrafficPolicy": {
+      "@id": "kgateway:trafficpolicy",
+      "@context": {
+        "targetRefs": "https://schema.org/target",
+        "cors": "https://schema.org/actionOption",
+        "extAuth": "https://schema.org/AuthorizeAction",
+        "extProc": "https://schema.org/actionOption",
+        "rateLimit": "https://schema.org/actionOption",
+        "timeout": "https://schema.org/duration",
+        "retries": "https://schema.org/repeatCount",
+        "requestHeaderModifier": "https://schema.org/httpHeaders",
+        "responseHeaderModifier": "https://schema.org/httpHeaders"
+      }
+    },
+    "Backend": {
+      "@id": "kgateway:backend",
+      "@context": {
+        "type": "https://schema.org/category",
+        "static": "https://schema.org/hasPart",
+        "aws": "https://schema.org/hasPart",
+        "ai": "https://schema.org/hasPart",
+        "host": "https://schema.org/hostingOrganization",
+        "port": "https://schema.org/identifier",
+        "region": "https://schema.org/areaServed",
+        "lambdaFunctionName": "https://schema.org/name",
+        "provider": "https://schema.org/provider"
+      }
+    },
+    "DirectResponse": {
+      "@id": "kgateway:directresponse",
+      "@context": {
+        "statusCode": "https://schema.org/httpStatusCode",
+        "body": "https://schema.org/text"
+      }
+    },
+    "GatewayExtension": {
+      "@id": "kgateway:gatewayextension",
+      "@context": {
+        "type": "https://schema.org/category",
+        "extAuth": "https://schema.org/AuthorizeAction",
+        "extProc": "https://schema.org/actionOption",
+        "rateLimit": "https://schema.org/actionOption",
+        "grpcService": "https://schema.org/serviceUrl",
+        "backendRef": {
+          "@id": "kgateway:backend",
+          "@type": "@id"
+        }
+      }
+    },
+    "GatewayParameters": {
+      "@id": "kgateway:gatewayparameters",
+      "@context": {
+        "kube": "https://schema.org/actionOption",
+        "deployment": "https://schema.org/actionOption",
+        "replicas": "https://schema.org/amount",
+        "podTemplate": "https://schema.org/actionOption",
+        "envoyContainer": "https://schema.org/softwareRequirements",
+        "service": "https://schema.org/serviceType"
+      }
+    },
+    "HTTPListenerPolicy": {
+      "@id": "kgateway:httplistenerpolicy",
+      "@context": {
+        "targetRefs": "https://schema.org/target",
+        "accessLogging": "https://schema.org/actionOption",
+        "buffer": "https://schema.org/actionOption",
+        "celValidation": "https://schema.org/actionOption",
+        "basicAuth": "https://schema.org/AuthorizeAction"
+      }
+    },
+    "AIBackend": {
+      "@id": "kgateway:aibackend",
+      "@context": {
+        "provider": "https://schema.org/provider",
+        "type": "https://schema.org/category",
+        "model": "https://schema.org/name",
+        "groups": "https://schema.org/hasPart",
+        "priority": "https://schema.org/position",
+        "weight": "https://schema.org/amount",
+        "backendRef": {
+          "@id": "kgateway:backend",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

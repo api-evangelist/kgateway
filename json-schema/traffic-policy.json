@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/traffic-policy.json",
+  "title": "kgateway TrafficPolicy",
+  "description": "TrafficPolicy attaches traffic management policies to routes in an HTTPRoute or all routes served by a Gateway. Supports CORS, external auth, external processing, rate limiting, timeouts, retries, transformations, and header modifiers.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the TrafficPolicy resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "TrafficPolicy",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the TrafficPolicy resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the TrafficPolicy resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Key-value pairs for categorization."
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Key-value pairs for non-identifying metadata."
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "TrafficPolicySpec defines the desired state of a TrafficPolicy.",
+      "properties": {
+        "targetRefs": {
+          "type": "array",
+          "description": "References to the target resources to which this policy applies.",
+          "items": {
+            "$ref": "#/$defs/PolicyTargetRef"
+          }
+        },
+        "cors": {
+          "type": "object",
+          "description": "CORS policy configuration.",
+          "properties": {
+            "allowOrigins": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": ["Exact", "Prefix", "Regex"]
+                  },
+                  "value": { "type": "string" }
+                }
+              }
+            },
+            "allowMethods": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "allowHeaders": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "exposeHeaders": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "maxAge": {
+              "type": "string",
+              "description": "Maximum time a preflight request can be cached."
+            },
+            "allowCredentials": { "type": "boolean" }
+          }
+        },
+        "extAuth": {
+          "type": "object",
+          "description": "External authentication configuration.",
+          "properties": {
+            "extensionRef": {
+              "type": "object",
+              "description": "Reference to a GatewayExtension for external auth.",
+              "properties": {
+                "name": { "type": "string" },
+                "namespace": { "type": "string" }
+              }
+            },
+            "disable": {
+              "type": "boolean",
+              "description": "Disable external auth for this route."
+            }
+          }
+        },
+        "extProc": {
+          "type": "object",
+          "description": "External processing configuration.",
+          "properties": {
+            "extensionRef": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "namespace": { "type": "string" }
+              }
+            },
+            "disable": {
+              "type": "boolean",
+              "description": "Disable external processing for this route."
+            }
+          }
+        },
+        "rateLimit": {
+          "type": "object",
+          "description": "Rate limiting configuration.",
+          "properties": {
+            "extensionRef": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "namespace": { "type": "string" }
+              }
+            },
+            "disable": { "type": "boolean" }
+          }
+        },
+        "timeout": {
+          "type": "object",
+          "description": "Timeout configuration for requests.",
+          "properties": {
+            "request": {
+              "type": "string",
+              "description": "Maximum duration for the entire request. Uses Go duration format (e.g., 30s, 1m)."
+            },
+            "idle": {
+              "type": "string",
+              "description": "Maximum duration for idle connections."
+            }
+          }
+        },
+        "retries": {
+          "type": "object",
+          "description": "Retry configuration for failed requests.",
+          "properties": {
+            "attempts": {
+              "type": "integer",
+              "description": "Maximum number of retry attempts."
+            },
+            "perTryTimeout": {
+              "type": "string",
+              "description": "Timeout per retry attempt."
+            },
+            "backOff": {
+              "type": "object",
+              "properties": {
+                "baseInterval": { "type": "string" },
+                "maxInterval": { "type": "string" }
+              }
+            },
+            "retryOn": {
+              "type": "string",
+              "description": "Conditions for retry, comma-separated (e.g., connect-failure,refused-stream,5xx)."
+            }
+          }
+        },
+        "requestHeaderModifier": {
+          "$ref": "#/$defs/HeaderModifier",
+          "description": "Modify request headers."
+        },
+        "responseHeaderModifier": {
+          "$ref": "#/$defs/HeaderModifier",
+          "description": "Modify response headers."
+        }
+      },
+      "required": ["targetRefs"]
+    }
+  },
+  "$defs": {
+    "PolicyTargetRef": {
+      "type": "object",
+      "description": "Reference to a target resource.",
+      "properties": {
+        "group": { "type": "string" },
+        "kind": { "type": "string" },
+        "name": { "type": "string" }
+      },
+      "required": ["kind", "name"]
+    },
+    "HeaderModifier": {
+      "type": "object",
+      "properties": {
+        "set": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        },
+        "add": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "value": { "type": "string" }
+            }
+          }
+        },
+        "remove": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

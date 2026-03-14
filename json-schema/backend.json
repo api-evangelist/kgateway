@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/backend.json",
+  "title": "kgateway Backend",
+  "description": "Backend defines a routable backend such as an AI provider, AWS Lambda function, or static server for use by Gateways.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the Backend resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "Backend",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the Backend resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the Backend resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "BackendSpec defines the desired state of a Backend.",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of the backend.",
+          "enum": ["Static", "AWS", "AI"]
+        },
+        "static": {
+          "type": "object",
+          "description": "Static backend configuration.",
+          "properties": {
+            "hosts": {
+              "type": "array",
+              "description": "List of static hosts.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "host": {
+                    "type": "string",
+                    "description": "Hostname or IP address."
+                  },
+                  "port": {
+                    "type": "integer",
+                    "description": "Port number."
+                  },
+                  "tls": {
+                    "type": "object",
+                    "description": "TLS configuration for the host.",
+                    "properties": {
+                      "sni": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "aws": {
+          "type": "object",
+          "description": "AWS Lambda backend configuration.",
+          "properties": {
+            "region": {
+              "type": "string",
+              "description": "AWS region."
+            },
+            "lambdaFunctionName": {
+              "type": "string",
+              "description": "Name of the AWS Lambda function."
+            },
+            "accountId": {
+              "type": "string",
+              "description": "AWS account ID."
+            },
+            "roleArn": {
+              "type": "string",
+              "description": "ARN of the IAM role to assume."
+            }
+          }
+        },
+        "ai": {
+          "type": "object",
+          "description": "AI provider backend configuration.",
+          "properties": {
+            "provider": {
+              "type": "object",
+              "description": "Configuration for the LLM provider.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["openai", "azure", "gemini", "mistral"]
+                },
+                "openai": {
+                  "type": "object",
+                  "properties": {
+                    "authToken": { "$ref": "#/$defs/AuthToken" }
+                  }
+                },
+                "azure": {
+                  "type": "object",
+                  "properties": {
+                    "endpoint": { "type": "string" },
+                    "deploymentName": { "type": "string" },
+                    "apiVersion": { "type": "string" },
+                    "authToken": { "$ref": "#/$defs/AuthToken" }
+                  }
+                },
+                "gemini": {
+                  "type": "object",
+                  "properties": {
+                    "authToken": { "$ref": "#/$defs/AuthToken" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "AuthToken": {
+      "type": "object",
+      "properties": {
+        "secretRef": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "namespace": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

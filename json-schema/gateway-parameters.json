@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/gateway-parameters.json",
+  "title": "kgateway GatewayParameters",
+  "description": "GatewayParameters customizes gateway infrastructure deployment settings including replicas, container configuration, and proxy provisioning.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the GatewayParameters resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "GatewayParameters",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the GatewayParameters resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the GatewayParameters resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "GatewayParametersSpec defines the desired state of GatewayParameters.",
+      "properties": {
+        "kube": {
+          "type": "object",
+          "description": "Kubernetes deployment settings.",
+          "properties": {
+            "deployment": {
+              "type": "object",
+              "properties": {
+                "replicas": {
+                  "type": "integer",
+                  "description": "Number of gateway proxy replicas."
+                }
+              }
+            },
+            "podTemplate": {
+              "type": "object",
+              "description": "Pod template configuration.",
+              "properties": {
+                "extraLabels": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                },
+                "extraAnnotations": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                },
+                "nodeSelector": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                },
+                "tolerations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": { "type": "string" },
+                      "operator": { "type": "string" },
+                      "value": { "type": "string" },
+                      "effect": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            },
+            "envoyContainer": {
+              "type": "object",
+              "description": "Envoy proxy container configuration.",
+              "properties": {
+                "resources": {
+                  "type": "object",
+                  "properties": {
+                    "requests": {
+                      "type": "object",
+                      "properties": {
+                        "cpu": { "type": "string" },
+                        "memory": { "type": "string" }
+                      }
+                    },
+                    "limits": {
+                      "type": "object",
+                      "properties": {
+                        "cpu": { "type": "string" },
+                        "memory": { "type": "string" }
+                      }
+                    }
+                  }
+                },
+                "image": {
+                  "type": "object",
+                  "properties": {
+                    "registry": { "type": "string" },
+                    "repository": { "type": "string" },
+                    "tag": { "type": "string" }
+                  }
+                }
+              }
+            },
+            "service": {
+              "type": "object",
+              "description": "Service configuration.",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["ClusterIP", "NodePort", "LoadBalancer"]
+                },
+                "extraAnnotations": {
+                  "type": "object",
+                  "additionalProperties": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

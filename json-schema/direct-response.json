@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/api-evangelist/kgateway/blob/main/json-schema/direct-response.json",
+  "title": "kgateway DirectResponse",
+  "description": "DirectResponse configures a Gateway to directly respond to incoming requests with a custom HTTP response code and body.",
+  "type": "object",
+  "properties": {
+    "apiVersion": {
+      "type": "string",
+      "const": "gateway.kgateway.dev/v1alpha1",
+      "description": "API version for the DirectResponse resource."
+    },
+    "kind": {
+      "type": "string",
+      "const": "DirectResponse",
+      "description": "Resource kind."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Standard Kubernetes object metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the DirectResponse resource."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace of the DirectResponse resource."
+        },
+        "labels": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "annotations": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["name"]
+    },
+    "spec": {
+      "type": "object",
+      "description": "DirectResponseSpec defines the desired state of a DirectResponse.",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "description": "HTTP status code to return.",
+          "minimum": 200,
+          "maximum": 599
+        },
+        "body": {
+          "type": "string",
+          "description": "Response body to return."
+        }
+      },
+      "required": ["statusCode"]
+    }
+  }
+}
