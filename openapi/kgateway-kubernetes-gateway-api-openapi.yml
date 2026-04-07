@@ -28,12 +28,11 @@ servers:
         default: kubernetes.default.svc
         description: The Kubernetes API server hostname
 tags:
-  - name: TrafficPolicy
+  - name: AIBackend
     description: >-
-      Attach traffic management policies to routes in an HTTPRoute resource or
-      all routes served by a Gateway. Supports CORS, external auth, external
-      processing, rate limiting, timeouts, retries, transformations, and header
-      modifiers.
+      Configure AI backend providers with support for LLM providers such as
+      OpenAI, Azure OpenAI, and Gemini. Specify provider configuration and
+      priority groups for AI routing.
   - name: Backend
     description: >-
       Define routable backends such as AI providers (OpenAI, Azure, Gemini),
@@ -57,19 +56,12 @@ tags:
       Apply policies to all HTTP and HTTPS listeners defined on a Gateway.
       Configure listener-level settings that affect all traffic passing through
       the specified listeners.
-  - name: ListenerPolicy
+  - name: TrafficPolicy
     description: >-
-      Apply generic policies to Gateway listeners for cross-cutting concerns
-      that apply at the listener level.
-  - name: BackendConfigPolicy
-    description: >-
-      Configure backend-specific settings and policies for how traffic is
-      handled when communicating with backend services.
-  - name: AIBackend
-    description: >-
-      Configure AI backend providers with support for LLM providers such as
-      OpenAI, Azure OpenAI, and Gemini. Specify provider configuration and
-      priority groups for AI routing.
+      Attach traffic management policies to routes in an HTTPRoute resource or
+      all routes served by a Gateway. Supports CORS, external auth, external
+      processing, rate limiting, timeouts, retries, transformations, and header
+      modifiers.
 paths:
   /namespaces/{namespace}/trafficpolicies:
     get:

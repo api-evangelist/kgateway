@@ -5,11 +5,11 @@ apis:
   - aid: kgateway:kgateway-kubernetes-gateway-api
     name: Kgateway Kubernetes Gateway API
     tags:
+      - AI Gateway
+      - API Gateway
+      - Envoy
       - Gateways
       - Kubernetes
-      - Envoy
-      - API Gateway
-      - AI Gateway
       - Traffic Management
     humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
     baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
