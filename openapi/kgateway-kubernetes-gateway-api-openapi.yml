@@ -74,7 +74,7 @@ paths:
   /namespaces/{namespace}/trafficpolicies:
     get:
       operationId: listTrafficPolicies
-      summary: List TrafficPolicy resources
+      summary: Kgateway List TrafficPolicy resources
       description: List all TrafficPolicy resources in the specified namespace.
       tags:
         - TrafficPolicy
@@ -94,7 +94,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createTrafficPolicy
-      summary: Create a TrafficPolicy
+      summary: Kgateway Create a TrafficPolicy
       description: >-
         Create a TrafficPolicy resource to attach traffic management policies to
         routes in an HTTPRoute resource.
@@ -122,7 +122,7 @@ paths:
   /namespaces/{namespace}/trafficpolicies/{name}:
     get:
       operationId: getTrafficPolicy
-      summary: Get a TrafficPolicy
+      summary: Kgateway Get a TrafficPolicy
       description: Retrieve a specific TrafficPolicy resource by name and namespace.
       tags:
         - TrafficPolicy
@@ -142,7 +142,7 @@ paths:
           description: TrafficPolicy not found
     put:
       operationId: replaceTrafficPolicy
-      summary: Replace a TrafficPolicy
+      summary: Kgateway Replace a TrafficPolicy
       description: Replace a specific TrafficPolicy resource.
       tags:
         - TrafficPolicy
@@ -168,7 +168,7 @@ paths:
           description: TrafficPolicy not found
     delete:
       operationId: deleteTrafficPolicy
-      summary: Delete a TrafficPolicy
+      summary: Kgateway Delete a TrafficPolicy
       description: Delete a specific TrafficPolicy resource.
       tags:
         - TrafficPolicy
@@ -185,7 +185,7 @@ paths:
   /namespaces/{namespace}/backends:
     get:
       operationId: listBackends
-      summary: List Backend resources
+      summary: Kgateway List Backend resources
       description: >-
         List all Backend resources in the specified namespace. Backends define
         routable external services such as AI providers, AWS Lambda functions,
@@ -208,7 +208,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createBackend
-      summary: Create a Backend
+      summary: Kgateway Create a Backend
       description: >-
         Create a Backend resource to define a routable backend such as an AI
         provider, AWS Lambda function, or static server.
@@ -236,7 +236,7 @@ paths:
   /namespaces/{namespace}/backends/{name}:
     get:
       operationId: getBackend
-      summary: Get a Backend
+      summary: Kgateway Get a Backend
       description: Retrieve a specific Backend resource by name and namespace.
       tags:
         - Backend
@@ -256,7 +256,7 @@ paths:
           description: Backend not found
     put:
       operationId: replaceBackend
-      summary: Replace a Backend
+      summary: Kgateway Replace a Backend
       description: Replace a specific Backend resource.
       tags:
         - Backend
@@ -282,7 +282,7 @@ paths:
           description: Backend not found
     delete:
       operationId: deleteBackend
-      summary: Delete a Backend
+      summary: Kgateway Delete a Backend
       description: Delete a specific Backend resource.
       tags:
         - Backend
@@ -299,7 +299,7 @@ paths:
   /namespaces/{namespace}/directresponses:
     get:
       operationId: listDirectResponses
-      summary: List DirectResponse resources
+      summary: Kgateway List DirectResponse resources
       description: >-
         List all DirectResponse resources in the specified namespace.
         DirectResponse resources allow Gateways to directly respond to requests
@@ -322,7 +322,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createDirectResponse
-      summary: Create a DirectResponse
+      summary: Kgateway Create a DirectResponse
       description: >-
         Create a DirectResponse resource to configure a Gateway to directly
         respond to incoming requests with a custom HTTP response.
@@ -350,7 +350,7 @@ paths:
   /namespaces/{namespace}/directresponses/{name}:
     get:
       operationId: getDirectResponse
-      summary: Get a DirectResponse
+      summary: Kgateway Get a DirectResponse
       description: Retrieve a specific DirectResponse resource by name and namespace.
       tags:
         - DirectResponse
@@ -370,7 +370,7 @@ paths:
           description: DirectResponse not found
     put:
       operationId: replaceDirectResponse
-      summary: Replace a DirectResponse
+      summary: Kgateway Replace a DirectResponse
       description: Replace a specific DirectResponse resource.
       tags:
         - DirectResponse
@@ -396,7 +396,7 @@ paths:
           description: DirectResponse not found
     delete:
       operationId: deleteDirectResponse
-      summary: Delete a DirectResponse
+      summary: Kgateway Delete a DirectResponse
       description: Delete a specific DirectResponse resource.
       tags:
         - DirectResponse
@@ -413,7 +413,7 @@ paths:
   /namespaces/{namespace}/gatewayextensions:
     get:
       operationId: listGatewayExtensions
-      summary: List GatewayExtension resources
+      summary: Kgateway List GatewayExtension resources
       description: >-
         List all GatewayExtension resources in the specified namespace.
         GatewayExtensions integrate external services with a Gateway.
@@ -435,7 +435,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createGatewayExtension
-      summary: Create a GatewayExtension
+      summary: Kgateway Create a GatewayExtension
       description: >-
         Create a GatewayExtension resource to integrate external services such
         as external auth, rate limiting, or external processing with a Gateway.
@@ -463,7 +463,7 @@ paths:
   /namespaces/{namespace}/gatewayextensions/{name}:
     get:
       operationId: getGatewayExtension
-      summary: Get a GatewayExtension
+      summary: Kgateway Get a GatewayExtension
       description: Retrieve a specific GatewayExtension resource by name and namespace.
       tags:
         - GatewayExtension
@@ -483,7 +483,7 @@ paths:
           description: GatewayExtension not found
     put:
       operationId: replaceGatewayExtension
-      summary: Replace a GatewayExtension
+      summary: Kgateway Replace a GatewayExtension
       description: Replace a specific GatewayExtension resource.
       tags:
         - GatewayExtension
@@ -509,7 +509,7 @@ paths:
           description: GatewayExtension not found
     delete:
       operationId: deleteGatewayExtension
-      summary: Delete a GatewayExtension
+      summary: Kgateway Delete a GatewayExtension
       description: Delete a specific GatewayExtension resource.
       tags:
         - GatewayExtension
@@ -526,7 +526,7 @@ paths:
   /namespaces/{namespace}/gatewayparameters:
     get:
       operationId: listGatewayParameters
-      summary: List GatewayParameters resources
+      summary: Kgateway List GatewayParameters resources
       description: >-
         List all GatewayParameters resources in the specified namespace.
         GatewayParameters customize gateway infrastructure deployment settings.
@@ -548,7 +548,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createGatewayParameters
-      summary: Create GatewayParameters
+      summary: Kgateway Create GatewayParameters
       description: >-
         Create a GatewayParameters resource to customize gateway infrastructure
         deployment settings including replicas, container configuration, and
@@ -577,7 +577,7 @@ paths:
   /namespaces/{namespace}/gatewayparameters/{name}:
     get:
       operationId: getGatewayParameters
-      summary: Get GatewayParameters
+      summary: Kgateway Get GatewayParameters
       description: Retrieve a specific GatewayParameters resource by name and namespace.
       tags:
         - GatewayParameters
@@ -597,7 +597,7 @@ paths:
           description: GatewayParameters not found
     put:
       operationId: replaceGatewayParameters
-      summary: Replace GatewayParameters
+      summary: Kgateway Replace GatewayParameters
       description: Replace a specific GatewayParameters resource.
       tags:
         - GatewayParameters
@@ -623,7 +623,7 @@ paths:
           description: GatewayParameters not found
     delete:
       operationId: deleteGatewayParameters
-      summary: Delete GatewayParameters
+      summary: Kgateway Delete GatewayParameters
       description: Delete a specific GatewayParameters resource.
       tags:
         - GatewayParameters
@@ -640,7 +640,7 @@ paths:
   /namespaces/{namespace}/httplistenerpolicies:
     get:
       operationId: listHTTPListenerPolicies
-      summary: List HTTPListenerPolicy resources
+      summary: Kgateway List HTTPListenerPolicy resources
       description: >-
         List all HTTPListenerPolicy resources in the specified namespace.
         HTTPListenerPolicies apply policies to all HTTP and HTTPS listeners on
@@ -663,7 +663,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createHTTPListenerPolicy
-      summary: Create an HTTPListenerPolicy
+      summary: Kgateway Create an HTTPListenerPolicy
       description: >-
         Create an HTTPListenerPolicy resource to apply policies to all HTTP and
         HTTPS listeners defined on a Gateway.
@@ -691,7 +691,7 @@ paths:
   /namespaces/{namespace}/httplistenerpolicies/{name}:
     get:
       operationId: getHTTPListenerPolicy
-      summary: Get an HTTPListenerPolicy
+      summary: Kgateway Get an HTTPListenerPolicy
       description: >-
         Retrieve a specific HTTPListenerPolicy resource by name and namespace.
       tags:
@@ -712,7 +712,7 @@ paths:
           description: HTTPListenerPolicy not found
     put:
       operationId: replaceHTTPListenerPolicy
-      summary: Replace an HTTPListenerPolicy
+      summary: Kgateway Replace an HTTPListenerPolicy
       description: Replace a specific HTTPListenerPolicy resource.
       tags:
         - HTTPListenerPolicy
@@ -738,7 +738,7 @@ paths:
           description: HTTPListenerPolicy not found
     delete:
       operationId: deleteHTTPListenerPolicy
-      summary: Delete an HTTPListenerPolicy
+      summary: Kgateway Delete an HTTPListenerPolicy
       description: Delete a specific HTTPListenerPolicy resource.
       tags:
         - HTTPListenerPolicy
@@ -755,7 +755,7 @@ paths:
   /namespaces/{namespace}/aibackends:
     get:
       operationId: listAIBackends
-      summary: List AIBackend resources
+      summary: Kgateway List AIBackend resources
       description: >-
         List all AIBackend resources in the specified namespace. AIBackends
         configure AI provider backends such as OpenAI, Azure OpenAI, and
@@ -778,7 +778,7 @@ paths:
           description: Unauthorized
     post:
       operationId: createAIBackend
-      summary: Create an AIBackend
+      summary: Kgateway Create an AIBackend
       description: >-
         Create an AIBackend resource to configure an AI provider backend with
         LLM provider settings and priority groups.
@@ -806,7 +806,7 @@ paths:
   /namespaces/{namespace}/aibackends/{name}:
     get:
       operationId: getAIBackend
-      summary: Get an AIBackend
+      summary: Kgateway Get an AIBackend
       description: Retrieve a specific AIBackend resource by name and namespace.
       tags:
         - AIBackend
@@ -826,7 +826,7 @@ paths:
           description: AIBackend not found
     put:
       operationId: replaceAIBackend
-      summary: Replace an AIBackend
+      summary: Kgateway Replace an AIBackend
       description: Replace a specific AIBackend resource.
       tags:
         - AIBackend
@@ -852,7 +852,7 @@ paths:
           description: AIBackend not found
     delete:
       operationId: deleteAIBackend
-      summary: Delete an AIBackend
+      summary: Kgateway Delete an AIBackend
       description: Delete a specific AIBackend resource.
       tags:
         - AIBackend

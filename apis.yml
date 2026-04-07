@@ -3,7 +3,7 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml
 apis:
   - aid: kgateway:kgateway-kubernetes-gateway-api
-    name: kgateway Kubernetes Gateway API
+    name: Kgateway Kubernetes Gateway API
     tags:
       - Gateways
       - Kubernetes
@@ -41,7 +41,7 @@ apis:
       parameters, HTTP listener policies, and AI backends. kgateway is built on
       Envoy proxy and implements the Kubernetes Gateway API for microservices
       and AI agent traffic management.
-name: kgateway
+name: Kgateway
 tags:
   - Gateways
 type: Index
@@ -51,17 +51,10 @@ created: '2026-01-02'
 modified: '2026-03-16'
 position: Consumer
 description: >-
-  kgateway is the most widely deployed gateway in Kubernetes for microservices
-  and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native
-  ingress controller and next-generation API gateway built on top of Envoy proxy
-  and the Kubernetes Gateway API. Originally born as Gloo in 2018, kgateway
-  provides a resilient and performance-oriented control plane that scales from
-  lightweight microgateway deployments between services to massively parallel
-  centralized gateways handling billions of API calls. The project provides
-  custom resource definitions for traffic management, backend routing (including
-  AI providers like OpenAI, Azure, and Gemini), direct responses, gateway
-  extensions for external auth and rate limiting, and infrastructure
-  configuration.
+  kgateway is the most widely deployed gateway in Kubernetes for microservices and
+  AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller
+  and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway
+  API.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
