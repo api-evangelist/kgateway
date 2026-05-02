@@ -16,7 +16,7 @@ kgateway is the most widely deployed gateway in Kubernetes for microservices and
 ## Timestamps
 
 - **Created:** 2026-01-02 
-- **Modified:** 2026-03-16 
+- **Modified:** 2026-04-28
 
 ## APIs
 
