@@ -1,0 +1,13 @@
+{
+  "repo": "kgateway",
+  "feeds": [
+    {
+      "source": "https://kgateway.dev/blog/",
+      "feed_url": "https://kgateway.dev/blog/index.xml",
+      "saved": 10,
+      "title": "kgateway \u2013 Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:30:18Z"
+}
