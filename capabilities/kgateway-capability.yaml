@@ -1,0 +1,1061 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API
+  description: kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich,
+    fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and
+    the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group
+    for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies,
+    and AI backends. These resources are managed through the Kubernetes API server.
+  tags:
+  - Kgateway
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: kgateway
+    baseUri: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{KGATEWAY_TOKEN}}'
+    resources:
+    - name: namespaces-namespace-trafficpolicies
+      path: /namespaces/{namespace}/trafficpolicies
+      operations:
+      - name: listtrafficpolicies
+        method: GET
+        description: Kgateway List TrafficPolicy resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtrafficpolicy
+        method: POST
+        description: Kgateway Create a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-trafficpolicies-name
+      path: /namespaces/{namespace}/trafficpolicies/{name}
+      operations:
+      - name: gettrafficpolicy
+        method: GET
+        description: Kgateway Get a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacetrafficpolicy
+        method: PUT
+        description: Kgateway Replace a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletetrafficpolicy
+        method: DELETE
+        description: Kgateway Delete a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-backends
+      path: /namespaces/{namespace}/backends
+      operations:
+      - name: listbackends
+        method: GET
+        description: Kgateway List Backend resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createbackend
+        method: POST
+        description: Kgateway Create a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-backends-name
+      path: /namespaces/{namespace}/backends/{name}
+      operations:
+      - name: getbackend
+        method: GET
+        description: Kgateway Get a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacebackend
+        method: PUT
+        description: Kgateway Replace a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletebackend
+        method: DELETE
+        description: Kgateway Delete a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-directresponses
+      path: /namespaces/{namespace}/directresponses
+      operations:
+      - name: listdirectresponses
+        method: GET
+        description: Kgateway List DirectResponse resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdirectresponse
+        method: POST
+        description: Kgateway Create a DirectResponse
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-directresponses-name
+      path: /namespaces/{namespace}/directresponses/{name}
+      operations:
+      - name: getdirectresponse
+        method: GET
+        description: Kgateway Get a DirectResponse
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacedirectresponse
+        method: PUT
+        description: Kgateway Replace a DirectResponse
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletedirectresponse
+        method: DELETE
+        description: Kgateway Delete a DirectResponse
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-gatewayextensions
+      path: /namespaces/{namespace}/gatewayextensions
+      operations:
+      - name: listgatewayextensions
+        method: GET
+        description: Kgateway List GatewayExtension resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategatewayextension
+        method: POST
+        description: Kgateway Create a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-gatewayextensions-name
+      path: /namespaces/{namespace}/gatewayextensions/{name}
+      operations:
+      - name: getgatewayextension
+        method: GET
+        description: Kgateway Get a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacegatewayextension
+        method: PUT
+        description: Kgateway Replace a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletegatewayextension
+        method: DELETE
+        description: Kgateway Delete a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-gatewayparameters
+      path: /namespaces/{namespace}/gatewayparameters
+      operations:
+      - name: listgatewayparameters
+        method: GET
+        description: Kgateway List GatewayParameters resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategatewayparameters
+        method: POST
+        description: Kgateway Create GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-gatewayparameters-name
+      path: /namespaces/{namespace}/gatewayparameters/{name}
+      operations:
+      - name: getgatewayparameters
+        method: GET
+        description: Kgateway Get GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacegatewayparameters
+        method: PUT
+        description: Kgateway Replace GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletegatewayparameters
+        method: DELETE
+        description: Kgateway Delete GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-httplistenerpolicies
+      path: /namespaces/{namespace}/httplistenerpolicies
+      operations:
+      - name: listhttplistenerpolicies
+        method: GET
+        description: Kgateway List HTTPListenerPolicy resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createhttplistenerpolicy
+        method: POST
+        description: Kgateway Create an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-httplistenerpolicies-name
+      path: /namespaces/{namespace}/httplistenerpolicies/{name}
+      operations:
+      - name: gethttplistenerpolicy
+        method: GET
+        description: Kgateway Get an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacehttplistenerpolicy
+        method: PUT
+        description: Kgateway Replace an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletehttplistenerpolicy
+        method: DELETE
+        description: Kgateway Delete an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-aibackends
+      path: /namespaces/{namespace}/aibackends
+      operations:
+      - name: listaibackends
+        method: GET
+        description: Kgateway List AIBackend resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaibackend
+        method: POST
+        description: Kgateway Create an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: namespaces-namespace-aibackends-name
+      path: /namespaces/{namespace}/aibackends/{name}
+      operations:
+      - name: getaibackend
+        method: GET
+        description: Kgateway Get an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replaceaibackend
+        method: PUT
+        description: Kgateway Replace an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteaibackend
+        method: DELETE
+        description: Kgateway Delete an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: kgateway-rest
+    description: REST adapter for kgateway Kubernetes Gateway API.
+    resources:
+    - path: /namespaces/{namespace}/trafficpolicies
+      name: listtrafficpolicies
+      operations:
+      - method: GET
+        name: listtrafficpolicies
+        description: Kgateway List TrafficPolicy resources
+        call: kgateway.listtrafficpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/trafficpolicies
+      name: createtrafficpolicy
+      operations:
+      - method: POST
+        name: createtrafficpolicy
+        description: Kgateway Create a TrafficPolicy
+        call: kgateway.createtrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/trafficpolicies/{name}
+      name: gettrafficpolicy
+      operations:
+      - method: GET
+        name: gettrafficpolicy
+        description: Kgateway Get a TrafficPolicy
+        call: kgateway.gettrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/trafficpolicies/{name}
+      name: replacetrafficpolicy
+      operations:
+      - method: PUT
+        name: replacetrafficpolicy
+        description: Kgateway Replace a TrafficPolicy
+        call: kgateway.replacetrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/trafficpolicies/{name}
+      name: deletetrafficpolicy
+      operations:
+      - method: DELETE
+        name: deletetrafficpolicy
+        description: Kgateway Delete a TrafficPolicy
+        call: kgateway.deletetrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/backends
+      name: listbackends
+      operations:
+      - method: GET
+        name: listbackends
+        description: Kgateway List Backend resources
+        call: kgateway.listbackends
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/backends
+      name: createbackend
+      operations:
+      - method: POST
+        name: createbackend
+        description: Kgateway Create a Backend
+        call: kgateway.createbackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/backends/{name}
+      name: getbackend
+      operations:
+      - method: GET
+        name: getbackend
+        description: Kgateway Get a Backend
+        call: kgateway.getbackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/backends/{name}
+      name: replacebackend
+      operations:
+      - method: PUT
+        name: replacebackend
+        description: Kgateway Replace a Backend
+        call: kgateway.replacebackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/backends/{name}
+      name: deletebackend
+      operations:
+      - method: DELETE
+        name: deletebackend
+        description: Kgateway Delete a Backend
+        call: kgateway.deletebackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/directresponses
+      name: listdirectresponses
+      operations:
+      - method: GET
+        name: listdirectresponses
+        description: Kgateway List DirectResponse resources
+        call: kgateway.listdirectresponses
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/directresponses
+      name: createdirectresponse
+      operations:
+      - method: POST
+        name: createdirectresponse
+        description: Kgateway Create a DirectResponse
+        call: kgateway.createdirectresponse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/directresponses/{name}
+      name: getdirectresponse
+      operations:
+      - method: GET
+        name: getdirectresponse
+        description: Kgateway Get a DirectResponse
+        call: kgateway.getdirectresponse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/directresponses/{name}
+      name: replacedirectresponse
+      operations:
+      - method: PUT
+        name: replacedirectresponse
+        description: Kgateway Replace a DirectResponse
+        call: kgateway.replacedirectresponse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/directresponses/{name}
+      name: deletedirectresponse
+      operations:
+      - method: DELETE
+        name: deletedirectresponse
+        description: Kgateway Delete a DirectResponse
+        call: kgateway.deletedirectresponse
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayextensions
+      name: listgatewayextensions
+      operations:
+      - method: GET
+        name: listgatewayextensions
+        description: Kgateway List GatewayExtension resources
+        call: kgateway.listgatewayextensions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayextensions
+      name: creategatewayextension
+      operations:
+      - method: POST
+        name: creategatewayextension
+        description: Kgateway Create a GatewayExtension
+        call: kgateway.creategatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayextensions/{name}
+      name: getgatewayextension
+      operations:
+      - method: GET
+        name: getgatewayextension
+        description: Kgateway Get a GatewayExtension
+        call: kgateway.getgatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayextensions/{name}
+      name: replacegatewayextension
+      operations:
+      - method: PUT
+        name: replacegatewayextension
+        description: Kgateway Replace a GatewayExtension
+        call: kgateway.replacegatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayextensions/{name}
+      name: deletegatewayextension
+      operations:
+      - method: DELETE
+        name: deletegatewayextension
+        description: Kgateway Delete a GatewayExtension
+        call: kgateway.deletegatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayparameters
+      name: listgatewayparameters
+      operations:
+      - method: GET
+        name: listgatewayparameters
+        description: Kgateway List GatewayParameters resources
+        call: kgateway.listgatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayparameters
+      name: creategatewayparameters
+      operations:
+      - method: POST
+        name: creategatewayparameters
+        description: Kgateway Create GatewayParameters
+        call: kgateway.creategatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayparameters/{name}
+      name: getgatewayparameters
+      operations:
+      - method: GET
+        name: getgatewayparameters
+        description: Kgateway Get GatewayParameters
+        call: kgateway.getgatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayparameters/{name}
+      name: replacegatewayparameters
+      operations:
+      - method: PUT
+        name: replacegatewayparameters
+        description: Kgateway Replace GatewayParameters
+        call: kgateway.replacegatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/gatewayparameters/{name}
+      name: deletegatewayparameters
+      operations:
+      - method: DELETE
+        name: deletegatewayparameters
+        description: Kgateway Delete GatewayParameters
+        call: kgateway.deletegatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/httplistenerpolicies
+      name: listhttplistenerpolicies
+      operations:
+      - method: GET
+        name: listhttplistenerpolicies
+        description: Kgateway List HTTPListenerPolicy resources
+        call: kgateway.listhttplistenerpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/httplistenerpolicies
+      name: createhttplistenerpolicy
+      operations:
+      - method: POST
+        name: createhttplistenerpolicy
+        description: Kgateway Create an HTTPListenerPolicy
+        call: kgateway.createhttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/httplistenerpolicies/{name}
+      name: gethttplistenerpolicy
+      operations:
+      - method: GET
+        name: gethttplistenerpolicy
+        description: Kgateway Get an HTTPListenerPolicy
+        call: kgateway.gethttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/httplistenerpolicies/{name}
+      name: replacehttplistenerpolicy
+      operations:
+      - method: PUT
+        name: replacehttplistenerpolicy
+        description: Kgateway Replace an HTTPListenerPolicy
+        call: kgateway.replacehttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/httplistenerpolicies/{name}
+      name: deletehttplistenerpolicy
+      operations:
+      - method: DELETE
+        name: deletehttplistenerpolicy
+        description: Kgateway Delete an HTTPListenerPolicy
+        call: kgateway.deletehttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/aibackends
+      name: listaibackends
+      operations:
+      - method: GET
+        name: listaibackends
+        description: Kgateway List AIBackend resources
+        call: kgateway.listaibackends
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/aibackends
+      name: createaibackend
+      operations:
+      - method: POST
+        name: createaibackend
+        description: Kgateway Create an AIBackend
+        call: kgateway.createaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/aibackends/{name}
+      name: getaibackend
+      operations:
+      - method: GET
+        name: getaibackend
+        description: Kgateway Get an AIBackend
+        call: kgateway.getaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/aibackends/{name}
+      name: replaceaibackend
+      operations:
+      - method: PUT
+        name: replaceaibackend
+        description: Kgateway Replace an AIBackend
+        call: kgateway.replaceaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /namespaces/{namespace}/aibackends/{name}
+      name: deleteaibackend
+      operations:
+      - method: DELETE
+        name: deleteaibackend
+        description: Kgateway Delete an AIBackend
+        call: kgateway.deleteaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: kgateway-mcp
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API for AI agent use.
+    tools:
+    - name: listtrafficpolicies
+      description: Kgateway List TrafficPolicy resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listtrafficpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createtrafficpolicy
+      description: Kgateway Create a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.createtrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettrafficpolicy
+      description: Kgateway Get a TrafficPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.gettrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacetrafficpolicy
+      description: Kgateway Replace a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacetrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletetrafficpolicy
+      description: Kgateway Delete a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletetrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listbackends
+      description: Kgateway List Backend resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listbackends
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createbackend
+      description: Kgateway Create a Backend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.createbackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getbackend
+      description: Kgateway Get a Backend
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.getbackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacebackend
+      description: Kgateway Replace a Backend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacebackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletebackend
+      description: Kgateway Delete a Backend
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletebackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listdirectresponses
+      description: Kgateway List DirectResponse resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listdirectresponses
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createdirectresponse
+      description: Kgateway Create a DirectResponse
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.createdirectresponse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdirectresponse
+      description: Kgateway Get a DirectResponse
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.getdirectresponse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacedirectresponse
+      description: Kgateway Replace a DirectResponse
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacedirectresponse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletedirectresponse
+      description: Kgateway Delete a DirectResponse
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletedirectresponse
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listgatewayextensions
+      description: Kgateway List GatewayExtension resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listgatewayextensions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creategatewayextension
+      description: Kgateway Create a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.creategatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgatewayextension
+      description: Kgateway Get a GatewayExtension
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.getgatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacegatewayextension
+      description: Kgateway Replace a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacegatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletegatewayextension
+      description: Kgateway Delete a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletegatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listgatewayparameters
+      description: Kgateway List GatewayParameters resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listgatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: creategatewayparameters
+      description: Kgateway Create GatewayParameters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.creategatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgatewayparameters
+      description: Kgateway Get GatewayParameters
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.getgatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacegatewayparameters
+      description: Kgateway Replace GatewayParameters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacegatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletegatewayparameters
+      description: Kgateway Delete GatewayParameters
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletegatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listhttplistenerpolicies
+      description: Kgateway List HTTPListenerPolicy resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listhttplistenerpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createhttplistenerpolicy
+      description: Kgateway Create an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.createhttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gethttplistenerpolicy
+      description: Kgateway Get an HTTPListenerPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.gethttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replacehttplistenerpolicy
+      description: Kgateway Replace an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replacehttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletehttplistenerpolicy
+      description: Kgateway Delete an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deletehttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listaibackends
+      description: Kgateway List AIBackend resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.listaibackends
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createaibackend
+      description: Kgateway Create an AIBackend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kgateway.createaibackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getaibackend
+      description: Kgateway Get an AIBackend
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kgateway.getaibackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replaceaibackend
+      description: Kgateway Replace an AIBackend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kgateway.replaceaibackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deleteaibackend
+      description: Kgateway Delete an AIBackend
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kgateway.deleteaibackend
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_TOKEN: KGATEWAY_TOKEN
