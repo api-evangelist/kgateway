@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — AIBackend
+  description: 'kgateway Kubernetes Gateway API — AIBackend. 5 operations. Lead operation: Kgateway List AIBackend resources.
+    Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - AIBackend
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-aibackend
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — AIBackend business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-aibackends
+      path: /namespaces/{namespace}/aibackends
+      operations:
+      - name: listaibackends
+        method: GET
+        description: Kgateway List AIBackend resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaibackend
+        method: POST
+        description: Kgateway Create an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-aibackends-name
+      path: /namespaces/{namespace}/aibackends/{name}
+      operations:
+      - name: getaibackend
+        method: GET
+        description: Kgateway Get an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replaceaibackend
+        method: PUT
+        description: Kgateway Replace an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaibackend
+        method: DELETE
+        description: Kgateway Delete an AIBackend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-aibackend-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — AIBackend. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/aibackends
+      name: namespaces-namespace-aibackends
+      description: REST surface for namespaces-namespace-aibackends.
+      operations:
+      - method: GET
+        name: listaibackends
+        description: Kgateway List AIBackend resources
+        call: kubernetes-gateway-aibackend.listaibackends
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaibackend
+        description: Kgateway Create an AIBackend
+        call: kubernetes-gateway-aibackend.createaibackend
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/aibackends/{name}
+      name: namespaces-namespace-aibackends-name
+      description: REST surface for namespaces-namespace-aibackends-name.
+      operations:
+      - method: GET
+        name: getaibackend
+        description: Kgateway Get an AIBackend
+        call: kubernetes-gateway-aibackend.getaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replaceaibackend
+        description: Kgateway Replace an AIBackend
+        call: kubernetes-gateway-aibackend.replaceaibackend
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaibackend
+        description: Kgateway Delete an AIBackend
+        call: kubernetes-gateway-aibackend.deleteaibackend
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-aibackend-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — AIBackend. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: kgateway-list-aibackend-resources
+      description: Kgateway List AIBackend resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-aibackend.listaibackends
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-aibackend
+      description: Kgateway Create an AIBackend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-aibackend.createaibackend
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-aibackend
+      description: Kgateway Get an AIBackend
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-aibackend.getaibackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-aibackend
+      description: Kgateway Replace an AIBackend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-aibackend.replaceaibackend
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-aibackend
+      description: Kgateway Delete an AIBackend
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-aibackend.deleteaibackend
+      outputParameters:
+      - type: object
+        mapping: $.

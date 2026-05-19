@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — TrafficPolicy
+  description: 'kgateway Kubernetes Gateway API — TrafficPolicy. 5 operations. Lead operation: Kgateway List TrafficPolicy
+    resources. Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - TrafficPolicy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-trafficpolicy
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — TrafficPolicy business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-trafficpolicies
+      path: /namespaces/{namespace}/trafficpolicies
+      operations:
+      - name: listtrafficpolicies
+        method: GET
+        description: Kgateway List TrafficPolicy resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtrafficpolicy
+        method: POST
+        description: Kgateway Create a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-trafficpolicies-name
+      path: /namespaces/{namespace}/trafficpolicies/{name}
+      operations:
+      - name: gettrafficpolicy
+        method: GET
+        description: Kgateway Get a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacetrafficpolicy
+        method: PUT
+        description: Kgateway Replace a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetrafficpolicy
+        method: DELETE
+        description: Kgateway Delete a TrafficPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-trafficpolicy-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — TrafficPolicy. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/trafficpolicies
+      name: namespaces-namespace-trafficpolicies
+      description: REST surface for namespaces-namespace-trafficpolicies.
+      operations:
+      - method: GET
+        name: listtrafficpolicies
+        description: Kgateway List TrafficPolicy resources
+        call: kubernetes-gateway-trafficpolicy.listtrafficpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtrafficpolicy
+        description: Kgateway Create a TrafficPolicy
+        call: kubernetes-gateway-trafficpolicy.createtrafficpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/trafficpolicies/{name}
+      name: namespaces-namespace-trafficpolicies-name
+      description: REST surface for namespaces-namespace-trafficpolicies-name.
+      operations:
+      - method: GET
+        name: gettrafficpolicy
+        description: Kgateway Get a TrafficPolicy
+        call: kubernetes-gateway-trafficpolicy.gettrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacetrafficpolicy
+        description: Kgateway Replace a TrafficPolicy
+        call: kubernetes-gateway-trafficpolicy.replacetrafficpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetrafficpolicy
+        description: Kgateway Delete a TrafficPolicy
+        call: kubernetes-gateway-trafficpolicy.deletetrafficpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-trafficpolicy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — TrafficPolicy. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kgateway-list-trafficpolicy-resources
+      description: Kgateway List TrafficPolicy resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-trafficpolicy.listtrafficpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-trafficpolicy
+      description: Kgateway Create a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-trafficpolicy.createtrafficpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-trafficpolicy
+      description: Kgateway Get a TrafficPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-trafficpolicy.gettrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-trafficpolicy
+      description: Kgateway Replace a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-trafficpolicy.replacetrafficpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-trafficpolicy
+      description: Kgateway Delete a TrafficPolicy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-trafficpolicy.deletetrafficpolicy
+      outputParameters:
+      - type: object
+        mapping: $.

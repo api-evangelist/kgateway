@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — GatewayParameters
+  description: 'kgateway Kubernetes Gateway API — GatewayParameters. 5 operations. Lead operation: Kgateway List GatewayParameters
+    resources. Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - GatewayParameters
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-gatewayparameters
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — GatewayParameters business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-gatewayparameters
+      path: /namespaces/{namespace}/gatewayparameters
+      operations:
+      - name: listgatewayparameters
+        method: GET
+        description: Kgateway List GatewayParameters resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategatewayparameters
+        method: POST
+        description: Kgateway Create GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-gatewayparameters-name
+      path: /namespaces/{namespace}/gatewayparameters/{name}
+      operations:
+      - name: getgatewayparameters
+        method: GET
+        description: Kgateway Get GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacegatewayparameters
+        method: PUT
+        description: Kgateway Replace GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegatewayparameters
+        method: DELETE
+        description: Kgateway Delete GatewayParameters
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-gatewayparameters-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — GatewayParameters. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/gatewayparameters
+      name: namespaces-namespace-gatewayparameters
+      description: REST surface for namespaces-namespace-gatewayparameters.
+      operations:
+      - method: GET
+        name: listgatewayparameters
+        description: Kgateway List GatewayParameters resources
+        call: kubernetes-gateway-gatewayparameters.listgatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategatewayparameters
+        description: Kgateway Create GatewayParameters
+        call: kubernetes-gateway-gatewayparameters.creategatewayparameters
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/gatewayparameters/{name}
+      name: namespaces-namespace-gatewayparameters-name
+      description: REST surface for namespaces-namespace-gatewayparameters-name.
+      operations:
+      - method: GET
+        name: getgatewayparameters
+        description: Kgateway Get GatewayParameters
+        call: kubernetes-gateway-gatewayparameters.getgatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacegatewayparameters
+        description: Kgateway Replace GatewayParameters
+        call: kubernetes-gateway-gatewayparameters.replacegatewayparameters
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegatewayparameters
+        description: Kgateway Delete GatewayParameters
+        call: kubernetes-gateway-gatewayparameters.deletegatewayparameters
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-gatewayparameters-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — GatewayParameters. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kgateway-list-gatewayparameters-resources
+      description: Kgateway List GatewayParameters resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayparameters.listgatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-gatewayparameters
+      description: Kgateway Create GatewayParameters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-gatewayparameters.creategatewayparameters
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-gatewayparameters
+      description: Kgateway Get GatewayParameters
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayparameters.getgatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-gatewayparameters
+      description: Kgateway Replace GatewayParameters
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayparameters.replacegatewayparameters
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-gatewayparameters
+      description: Kgateway Delete GatewayParameters
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-gatewayparameters.deletegatewayparameters
+      outputParameters:
+      - type: object
+        mapping: $.

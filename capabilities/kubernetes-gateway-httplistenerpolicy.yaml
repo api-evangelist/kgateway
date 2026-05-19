@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — HTTPListenerPolicy
+  description: 'kgateway Kubernetes Gateway API — HTTPListenerPolicy. 5 operations. Lead operation: Kgateway List HTTPListenerPolicy
+    resources. Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - HTTPListenerPolicy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-httplistenerpolicy
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — HTTPListenerPolicy business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-httplistenerpolicies
+      path: /namespaces/{namespace}/httplistenerpolicies
+      operations:
+      - name: listhttplistenerpolicies
+        method: GET
+        description: Kgateway List HTTPListenerPolicy resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createhttplistenerpolicy
+        method: POST
+        description: Kgateway Create an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-httplistenerpolicies-name
+      path: /namespaces/{namespace}/httplistenerpolicies/{name}
+      operations:
+      - name: gethttplistenerpolicy
+        method: GET
+        description: Kgateway Get an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacehttplistenerpolicy
+        method: PUT
+        description: Kgateway Replace an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletehttplistenerpolicy
+        method: DELETE
+        description: Kgateway Delete an HTTPListenerPolicy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-httplistenerpolicy-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — HTTPListenerPolicy. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/httplistenerpolicies
+      name: namespaces-namespace-httplistenerpolicies
+      description: REST surface for namespaces-namespace-httplistenerpolicies.
+      operations:
+      - method: GET
+        name: listhttplistenerpolicies
+        description: Kgateway List HTTPListenerPolicy resources
+        call: kubernetes-gateway-httplistenerpolicy.listhttplistenerpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createhttplistenerpolicy
+        description: Kgateway Create an HTTPListenerPolicy
+        call: kubernetes-gateway-httplistenerpolicy.createhttplistenerpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/httplistenerpolicies/{name}
+      name: namespaces-namespace-httplistenerpolicies-name
+      description: REST surface for namespaces-namespace-httplistenerpolicies-name.
+      operations:
+      - method: GET
+        name: gethttplistenerpolicy
+        description: Kgateway Get an HTTPListenerPolicy
+        call: kubernetes-gateway-httplistenerpolicy.gethttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacehttplistenerpolicy
+        description: Kgateway Replace an HTTPListenerPolicy
+        call: kubernetes-gateway-httplistenerpolicy.replacehttplistenerpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletehttplistenerpolicy
+        description: Kgateway Delete an HTTPListenerPolicy
+        call: kubernetes-gateway-httplistenerpolicy.deletehttplistenerpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-httplistenerpolicy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — HTTPListenerPolicy. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kgateway-list-httplistenerpolicy-resources
+      description: Kgateway List HTTPListenerPolicy resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httplistenerpolicy.listhttplistenerpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-httplistenerpolicy
+      description: Kgateway Create an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-httplistenerpolicy.createhttplistenerpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-httplistenerpolicy
+      description: Kgateway Get an HTTPListenerPolicy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httplistenerpolicy.gethttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-httplistenerpolicy
+      description: Kgateway Replace an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-httplistenerpolicy.replacehttplistenerpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-httplistenerpolicy
+      description: Kgateway Delete an HTTPListenerPolicy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-httplistenerpolicy.deletehttplistenerpolicy
+      outputParameters:
+      - type: object
+        mapping: $.

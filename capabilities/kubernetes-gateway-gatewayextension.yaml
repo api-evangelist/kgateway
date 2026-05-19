@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — GatewayExtension
+  description: 'kgateway Kubernetes Gateway API — GatewayExtension. 5 operations. Lead operation: Kgateway List GatewayExtension
+    resources. Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - GatewayExtension
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-gatewayextension
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — GatewayExtension business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-gatewayextensions
+      path: /namespaces/{namespace}/gatewayextensions
+      operations:
+      - name: listgatewayextensions
+        method: GET
+        description: Kgateway List GatewayExtension resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: creategatewayextension
+        method: POST
+        description: Kgateway Create a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-gatewayextensions-name
+      path: /namespaces/{namespace}/gatewayextensions/{name}
+      operations:
+      - name: getgatewayextension
+        method: GET
+        description: Kgateway Get a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacegatewayextension
+        method: PUT
+        description: Kgateway Replace a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletegatewayextension
+        method: DELETE
+        description: Kgateway Delete a GatewayExtension
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-gatewayextension-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — GatewayExtension. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/gatewayextensions
+      name: namespaces-namespace-gatewayextensions
+      description: REST surface for namespaces-namespace-gatewayextensions.
+      operations:
+      - method: GET
+        name: listgatewayextensions
+        description: Kgateway List GatewayExtension resources
+        call: kubernetes-gateway-gatewayextension.listgatewayextensions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: creategatewayextension
+        description: Kgateway Create a GatewayExtension
+        call: kubernetes-gateway-gatewayextension.creategatewayextension
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/gatewayextensions/{name}
+      name: namespaces-namespace-gatewayextensions-name
+      description: REST surface for namespaces-namespace-gatewayextensions-name.
+      operations:
+      - method: GET
+        name: getgatewayextension
+        description: Kgateway Get a GatewayExtension
+        call: kubernetes-gateway-gatewayextension.getgatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacegatewayextension
+        description: Kgateway Replace a GatewayExtension
+        call: kubernetes-gateway-gatewayextension.replacegatewayextension
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletegatewayextension
+        description: Kgateway Delete a GatewayExtension
+        call: kubernetes-gateway-gatewayextension.deletegatewayextension
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-gatewayextension-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — GatewayExtension. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: kgateway-list-gatewayextension-resources
+      description: Kgateway List GatewayExtension resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayextension.listgatewayextensions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-gatewayextension
+      description: Kgateway Create a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-gatewayextension.creategatewayextension
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-gatewayextension
+      description: Kgateway Get a GatewayExtension
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayextension.getgatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-gatewayextension
+      description: Kgateway Replace a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-gatewayextension.replacegatewayextension
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-gatewayextension
+      description: Kgateway Delete a GatewayExtension
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-gatewayextension.deletegatewayextension
+      outputParameters:
+      - type: object
+        mapping: $.

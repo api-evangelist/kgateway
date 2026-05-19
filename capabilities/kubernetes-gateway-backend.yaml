@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: kgateway Kubernetes Gateway API — Backend
+  description: 'kgateway Kubernetes Gateway API — Backend. 5 operations. Lead operation: Kgateway List Backend resources.
+    Self-contained Naftiko capability covering one Kgateway business surface.'
+  tags:
+  - Kgateway
+  - Backend
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    KGATEWAY_API_KEY: KGATEWAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: kubernetes-gateway-backend
+    baseUri: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+    description: kgateway Kubernetes Gateway API — Backend business capability. Self-contained, no shared references.
+    resources:
+    - name: namespaces-namespace-backends
+      path: /namespaces/{namespace}/backends
+      operations:
+      - name: listbackends
+        method: GET
+        description: Kgateway List Backend resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createbackend
+        method: POST
+        description: Kgateway Create a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: namespaces-namespace-backends-name
+      path: /namespaces/{namespace}/backends/{name}
+      operations:
+      - name: getbackend
+        method: GET
+        description: Kgateway Get a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacebackend
+        method: PUT
+        description: Kgateway Replace a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletebackend
+        method: DELETE
+        description: Kgateway Delete a Backend
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.KGATEWAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: kubernetes-gateway-backend-rest
+    port: 8080
+    description: REST adapter for kgateway Kubernetes Gateway API — Backend. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/namespaces/{namespace}/backends
+      name: namespaces-namespace-backends
+      description: REST surface for namespaces-namespace-backends.
+      operations:
+      - method: GET
+        name: listbackends
+        description: Kgateway List Backend resources
+        call: kubernetes-gateway-backend.listbackends
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbackend
+        description: Kgateway Create a Backend
+        call: kubernetes-gateway-backend.createbackend
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/namespaces/{namespace}/backends/{name}
+      name: namespaces-namespace-backends-name
+      description: REST surface for namespaces-namespace-backends-name.
+      operations:
+      - method: GET
+        name: getbackend
+        description: Kgateway Get a Backend
+        call: kubernetes-gateway-backend.getbackend
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacebackend
+        description: Kgateway Replace a Backend
+        call: kubernetes-gateway-backend.replacebackend
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebackend
+        description: Kgateway Delete a Backend
+        call: kubernetes-gateway-backend.deletebackend
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: kubernetes-gateway-backend-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for kgateway Kubernetes Gateway API — Backend. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: kgateway-list-backend-resources
+      description: Kgateway List Backend resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-backend.listbackends
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-create-backend
+      description: Kgateway Create a Backend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: kubernetes-gateway-backend.createbackend
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-get-backend
+      description: Kgateway Get a Backend
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-backend.getbackend
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-replace-backend
+      description: Kgateway Replace a Backend
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: kubernetes-gateway-backend.replacebackend
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: kgateway-delete-backend
+      description: Kgateway Delete a Backend
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: kubernetes-gateway-backend.deletebackend
+      outputParameters:
+      - type: object
+        mapping: $.
