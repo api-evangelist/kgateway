@@ -2,12 +2,20 @@
   "repo": "kgateway",
   "feeds": [
     {
+      "source": "https://kgateway.dev/blog/index.xml",
+      "feed_url": "https://kgateway.dev/blog/index.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://kgateway.dev/blog/",
       "feed_url": "https://kgateway.dev/blog/index.xml",
-      "title": "kgateway \u2013 Blog",
-      "saved": 28
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
   "post_count": 38,
-  "fetched": "2026-05-17T20:20:35Z"
+  "fetched": "2026-06-01T23:35:02Z"
 }
