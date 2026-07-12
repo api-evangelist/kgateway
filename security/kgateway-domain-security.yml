@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: kgateway.dev
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  5 02:07:53 2026 GMT
+  hsts: false
+- host: kubernetes.default.svc
+  https: false
+domains:
+- domain: kgateway.dev
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false
+- domain: default.svc
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: false

@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/kgateway-kubernetes-gateway-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: Kubernetes API bearer token authentication. Use a service account token or kubeconfig
+    token.
+  sources:
+  - openapi/kgateway-kubernetes-gateway-api-openapi.yml
