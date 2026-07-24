@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: kgateway Kubernetes Gateway AIBackend API
+  description: kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. These resources are managed through the Kubernetes API server.
+  version: 2.1.0
+  contact:
+    name: kgateway
+    url: https://kgateway.dev
+  license:
+    name: Apache 2.0
+    url: https://github.com/kgateway-dev/kgateway/blob/main/LICENSE
+servers:
+- url: https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1
+  description: Kubernetes API Server - kgateway Custom Resources
+  variables:
+    kubernetes-api-server:
+      default: kubernetes.default.svc
+      description: The Kubernetes API server hostname
+security:
+- BearerAuth: []
+tags:
+- name: AIBackend
+  description: Configure AI backend providers with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini. Specify provider configuration and priority groups for AI routing.
+paths:
+  /namespaces/{namespace}/aibackends:
+    get:
+      operationId: listAIBackends
+      summary: Kgateway List AIBackend resources
+      description: List all AIBackend resources in the specified namespace. AIBackends configure AI provider backends such as OpenAI, Azure OpenAI, and Gemini for AI gateway routing.
+      tags:
+      - AIBackend
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/LabelSelector'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Continue'
+      responses:
+        '200':
+          description: Successfully retrieved list of AIBackend resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackendList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createAIBackend
+      summary: Kgateway Create an AIBackend
+      description: Create an AIBackend resource to configure an AI provider backend with LLM provider settings and priority groups.
+      tags:
+      - AIBackend
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIBackend'
+      responses:
+        '201':
+          description: Successfully created AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - resource already exists
+  /namespaces/{namespace}/aibackends/{name}:
+    get:
+      operationId: getAIBackend
+      summary: Kgateway Get an AIBackend
+      description: Retrieve a specific AIBackend resource by name and namespace.
+      tags:
+      - AIBackend
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully retrieved AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+    put:
+      operationId: replaceAIBackend
+      summary: Kgateway Replace an AIBackend
+      description: Replace a specific AIBackend resource.
+      tags:
+      - AIBackend
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Name'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AIBackend'
+      responses:
+        '200':
+          description: Successfully replaced AIBackend.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AIBackend'
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+    delete:
+      operationId: deleteAIBackend
+      summary: Kgateway Delete an AIBackend
+      description: Delete a specific AIBackend resource.
+      tags:
+      - AIBackend
+      parameters:
+      - $ref: '#/components/parameters/Namespace'
+      - $ref: '#/components/parameters/Name'
+      responses:
+        '200':
+          description: Successfully deleted AIBackend.
+        '401':
+          description: Unauthorized
+        '404':
+          description: AIBackend not found
+components:
+  schemas:
+    AIBackend:
+      type: object
+      description: AIBackend configures AI provider backends with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini.
+      properties:
+        apiVersion:
+          type: string
+          enum:
+          - gateway.kgateway.dev/v1alpha1
+        kind:
+          type: string
+          enum:
+          - AIBackend
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          type: object
+          description: AIBackendSpec defines the desired state of an AIBackend.
+          properties:
+            provider:
+              type: object
+              description: Configuration for the LLM provider.
+              properties:
+                type:
+                  type: string
+                  description: The type of LLM provider.
+                  enum:
+                  - openai
+                  - azure
+                  - gemini
+                  - mistral
+                openai:
+                  type: object
+                  properties:
+                    model:
+                      type: string
+                      description: Model name to use.
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                azure:
+                  type: object
+                  properties:
+                    endpoint:
+                      type: string
+                    deploymentName:
+                      type: string
+                    apiVersion:
+                      type: string
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                gemini:
+                  type: object
+                  properties:
+                    model:
+                      type: string
+                    authToken:
+                      type: object
+                      properties:
+                        secretRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+            groups:
+              type: array
+              description: List of groups in priority order where each group defines a set of LLM providers.
+              items:
+                type: object
+                properties:
+                  priority:
+                    type: integer
+                    description: Priority of this group (lower is higher priority).
+                  backends:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        backendRef:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            namespace:
+                              type: string
+                        weight:
+                          type: integer
+                          description: Weight for load balancing within the group.
+        status:
+          type: object
+          description: Status of the AIBackend.
+          properties:
+            conditions:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  status:
+                    type: string
+                  reason:
+                    type: string
+                  message:
+                    type: string
+                  lastTransitionTime:
+                    type: string
+                    format: date-time
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
+    AIBackendList:
+      type: object
+      description: List of AIBackend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - AIBackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIBackend'
+  parameters:
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Kubernetes API bearer token authentication. Use a service account token or kubeconfig token.
+externalDocs:
+  description: kgateway API Reference Documentation
+  url: https://kgateway.dev/docs/envoy/latest/reference/api/
