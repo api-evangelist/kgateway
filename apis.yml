@@ -1,48 +1,236 @@
 aid: kgateway
 url: https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml
 apis:
-  - aid: kgateway:kgateway-kubernetes-gateway-api
-    name: Kgateway Kubernetes Gateway API
-    tags:
-      - AI Gateway
-      - API Gateway
-      - Envoy
-      - Gateways
-      - Kubernetes
-      - Traffic Management
-    humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
-    baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
-    properties:
-      - url: https://kgateway.dev/docs/envoy/latest/reference/api/
-        type: Documentation
-      - url: openapi/kgateway-kubernetes-gateway-api-openapi.yml
-        type: OpenAPI
-      - url: json-schema/traffic-policy.json
-        type: JSONSchema
-      - url: json-schema/backend.json
-        type: JSONSchema
-      - url: json-schema/direct-response.json
-        type: JSONSchema
-      - url: json-schema/gateway-extension.json
-        type: JSONSchema
-      - url: json-schema/gateway-parameters.json
-        type: JSONSchema
-      - url: json-schema/http-listener-policy.json
-        type: JSONSchema
-      - url: json-schema/ai-backend.json
-        type: JSONSchema
-      - url: json-ld/kgateway-context.jsonld
-        type: JSONLD
-    description: >-
-      The kgateway Kubernetes Gateway API provides custom resource definitions (CRDs) under the
-      gateway.kgateway.dev/v1alpha1 API group for managing traffic policies, backends, direct responses, gateway
-      extensions, gateway parameters, HTTP listener policies, and AI backends. kgateway is built on Envoy proxy and
-      implements the Kubernetes Gateway API for microservices and AI agent traffic management.
+- aid: kgateway:kgateway-aibackend-api
+  name: Kgateway AIBackend API
+  description: >-
+    Configure AI backend providers with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini.
+    Specify provider configuration and priority groups for AI routing.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - AIBackend
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-aibackend-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-backend-api
+  name: Kgateway Backend API
+  description: >-
+    Define routable backends such as AI providers (OpenAI, Azure, Gemini), AWS Lambda functions, or static
+    servers for use by Gateways. Reference Backend resources in HTTPRoute to route traffic to external
+    services.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - Backend
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-backend-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-directresponse-api
+  name: Kgateway DirectResponse API
+  description: >-
+    Configure Gateways to directly respond to incoming requests with a custom HTTP response code and body
+    without forwarding to a backend service.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - DirectResponse
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-directresponse-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-gatewayextension-api
+  name: Kgateway GatewayExtension API
+  description: >-
+    Integrate external services with a Gateway such as external auth, rate limiting, and external processing.
+    Serves as a configuration bridge between kgateway and external services that extend Gateway functionality.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - GatewayExtension
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-gatewayextension-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-gatewayparameters-api
+  name: Kgateway GatewayParameters API
+  description: >-
+    Customize gateway infrastructure deployment settings including replicas, container configuration,
+    pod templates, and proxy provisioning parameters.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - GatewayParameters
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-gatewayparameters-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-httplistenerpolicy-api
+  name: Kgateway HTTPListenerPolicy API
+  description: >-
+    Apply policies to all HTTP and HTTPS listeners defined on a Gateway. Configure listener-level settings
+    that affect all traffic passing through the specified listeners.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - HTTPListenerPolicy
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-httplistenerpolicy-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
+- aid: kgateway:kgateway-trafficpolicy-api
+  name: Kgateway TrafficPolicy API
+  description: >-
+    Attach traffic management policies to routes in an HTTPRoute resource or all routes served by a Gateway.
+    Supports CORS, external auth, external processing, rate limiting, timeouts, retries, transformations,
+    and header modifiers.
+  humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
+  baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
+  tags:
+  - TrafficPolicy
+  properties:
+  - type: OpenAPI
+    url: openapi/kgateway-trafficpolicy-api-openapi.yml
+  - type: Documentation
+    url: https://kgateway.dev/docs/envoy/latest/reference/api/
+  - type: JSONSchema
+    url: json-schema/traffic-policy.json
+  - type: JSONSchema
+    url: json-schema/backend.json
+  - type: JSONSchema
+    url: json-schema/direct-response.json
+  - type: JSONSchema
+    url: json-schema/gateway-extension.json
+  - type: JSONSchema
+    url: json-schema/gateway-parameters.json
+  - type: JSONSchema
+    url: json-schema/http-listener-policy.json
+  - type: JSONSchema
+    url: json-schema/ai-backend.json
+  - type: JSONLD
+    url: json-ld/kgateway-context.jsonld
 name: Kgateway
 tags:
   - Gateways
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kgateway.png
 access: 3rd-Party
 created: '2026-01-02'
 modified: '2026-05-19'
