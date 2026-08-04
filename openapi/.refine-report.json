@@ -1,0 +1,26 @@
+{
+  "provider": "kgateway",
+  "sources": [
+    "kgateway-aibackend-api-openapi.yml",
+    "kgateway-backend-api-openapi.yml",
+    "kgateway-directresponse-api-openapi.yml",
+    "kgateway-gatewayextension-api-openapi.yml",
+    "kgateway-gatewayparameters-api-openapi.yml",
+    "kgateway-httplistenerpolicy-api-openapi.yml",
+    "kgateway-trafficpolicy-api-openapi.yml"
+  ],
+  "outputs": [
+    "kgateway-aibackend-api-openapi.yml",
+    "kgateway-backend-api-openapi.yml",
+    "kgateway-directresponse-api-openapi.yml",
+    "kgateway-gatewayextension-api-openapi.yml",
+    "kgateway-gatewayparameters-api-openapi.yml",
+    "kgateway-httplistenerpolicy-api-openapi.yml",
+    "kgateway-trafficpolicy-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
