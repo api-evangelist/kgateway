@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "kgateway Kubernetes Gateway AIBackend GatewayParameters API",
+    "version": "2.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GatewayParameters",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kgateway List GatewayParameters resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayparameters",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned objects by labels."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for paginated list requests."
+              }
+            ]
+          },
+          "docs": "List all GatewayParameters resources in the specified namespace. GatewayParameters customize gateway infrastructure deployment settings."
+        },
+        {
+          "info": {
+            "name": "Kgateway Create GatewayParameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayparameters",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a GatewayParameters resource to customize gateway infrastructure deployment settings including replicas, container configuration, and proxy provisioning parameters."
+        },
+        {
+          "info": {
+            "name": "Kgateway Get GatewayParameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayparameters/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific GatewayParameters resource by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Replace GatewayParameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayparameters/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a specific GatewayParameters resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Delete GatewayParameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayparameters/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Delete a specific GatewayParameters resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

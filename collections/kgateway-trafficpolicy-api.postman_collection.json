@@ -1,0 +1,1300 @@
+{
+  "item": [
+    {
+      "id": "723c3af9-aafb-4bbb-8500-669625f733c4",
+      "name": "TrafficPolicy",
+      "description": {
+        "content": "Attach traffic management policies to routes in an HTTPRoute resource or all routes served by a Gateway. Supports CORS, external auth, external processing, rate limiting, timeouts, retries, transformations, and header modifiers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a913323-9330-4652-bc00-bb0ddbd95068",
+          "name": "Kgateway List TrafficPolicy resources",
+          "request": {
+            "name": "Kgateway List TrafficPolicy resources",
+            "description": {
+              "content": "List all TrafficPolicy resources in the specified namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "trafficpolicies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned objects by labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "Continue token for paginated list requests."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6944e78b-17ff-420f-add2-3e2a15f83d35",
+              "name": "Successfully retrieved list of TrafficPolicy resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"TrafficPolicyList\",\n  \"metadata\": {\n    \"continue\": \"string\",\n    \"resourceVersion\": \"string\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"TrafficPolicy\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1987-12-28T21:47:27.875Z\"\n      },\n      \"spec\": {\n        \"targetRefs\": [\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          },\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          }\n        ],\n        \"cors\": {\n          \"allowOrigins\": [\n            {\n              \"type\": \"Regex\",\n              \"value\": \"string\"\n            },\n            {\n              \"type\": \"Regex\",\n              \"value\": \"string\"\n            }\n          ],\n          \"allowMethods\": [\n            \"string\",\n            \"string\"\n          ],\n          \"allowHeaders\": [\n            \"string\",\n            \"string\"\n          ],\n          \"exposeHeaders\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maxAge\": \"string\",\n          \"allowCredentials\": true\n        },\n        \"extAuth\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": true\n        },\n        \"extProc\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": false\n        },\n        \"rateLimit\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": true\n        },\n        \"timeout\": {\n          \"request\": \"string\",\n          \"idle\": \"string\"\n        },\n        \"retries\": {\n          \"attempts\": 3162,\n          \"perTryTimeout\": \"string\",\n          \"backOff\": {\n            \"baseInterval\": \"string\",\n            \"maxInterval\": \"string\"\n          },\n          \"retryOn\": \"string\"\n        },\n        \"requestHeaderModifier\": {\n          \"set\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"add\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"remove\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"responseHeaderModifier\": {\n          \"set\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"add\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"remove\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1997-01-18T10:45:16.494Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"True\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1962-04-22T14:33:12.923Z\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"TrafficPolicy\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1988-03-03T00:27:24.920Z\"\n      },\n      \"spec\": {\n        \"targetRefs\": [\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          },\n          {\n            \"kind\": \"Gateway\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          }\n        ],\n        \"cors\": {\n          \"allowOrigins\": [\n            {\n              \"type\": \"Prefix\",\n              \"value\": \"string\"\n            },\n            {\n              \"type\": \"Prefix\",\n              \"value\": \"string\"\n            }\n          ],\n          \"allowMethods\": [\n            \"string\",\n            \"string\"\n          ],\n          \"allowHeaders\": [\n            \"string\",\n            \"string\"\n          ],\n          \"exposeHeaders\": [\n            \"string\",\n            \"string\"\n          ],\n          \"maxAge\": \"string\",\n          \"allowCredentials\": false\n        },\n        \"extAuth\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": true\n        },\n        \"extProc\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": true\n        },\n        \"rateLimit\": {\n          \"extensionRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          },\n          \"disable\": true\n        },\n        \"timeout\": {\n          \"request\": \"string\",\n          \"idle\": \"string\"\n        },\n        \"retries\": {\n          \"attempts\": 7965,\n          \"perTryTimeout\": \"string\",\n          \"backOff\": {\n            \"baseInterval\": \"string\",\n            \"maxInterval\": \"string\"\n          },\n          \"retryOn\": \"string\"\n        },\n        \"requestHeaderModifier\": {\n          \"set\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"add\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"remove\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"responseHeaderModifier\": {\n          \"set\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"add\": [\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            },\n            {\n              \"name\": \"string\",\n              \"value\": \"string\"\n            }\n          ],\n          \"remove\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"False\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1998-06-02T13:34:28.856Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"Unknown\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1966-02-19T21:53:14.423Z\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8777d29-9f26-4852-b34c-9232bfb599b6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d84b9814-153d-4f6a-925d-ca6d8209166c",
+          "name": "Kgateway Create a TrafficPolicy",
+          "request": {
+            "name": "Kgateway Create a TrafficPolicy",
+            "description": {
+              "content": "Create a TrafficPolicy resource to attach traffic management policies to routes in an HTTPRoute resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "trafficpolicies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f706ebdd-10dd-4162-9b1b-95ea27a04b98",
+              "name": "Successfully created TrafficPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"TrafficPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-07-11T06:40:37.810Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        },\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        }\n      ],\n      \"allowMethods\": [\n        \"string\",\n        \"string\"\n      ],\n      \"allowHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"exposeHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"maxAge\": \"string\",\n      \"allowCredentials\": true\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": true\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"timeout\": {\n      \"request\": \"string\",\n      \"idle\": \"string\"\n    },\n    \"retries\": {\n      \"attempts\": 8534,\n      \"perTryTimeout\": \"string\",\n      \"backOff\": {\n        \"baseInterval\": \"string\",\n        \"maxInterval\": \"string\"\n      },\n      \"retryOn\": \"string\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-05-06T21:13:18.265Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1948-09-21T10:47:16.866Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4456ce08-4a0f-4ff1-884d-1b58e7fbd697",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82dd0ca6-df9c-49b6-b984-99651f112371",
+              "name": "Conflict - resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "441dab67-379b-4290-aea8-7138a6ee08ce",
+          "name": "Kgateway Get a TrafficPolicy",
+          "request": {
+            "name": "Kgateway Get a TrafficPolicy",
+            "description": {
+              "content": "Retrieve a specific TrafficPolicy resource by name and namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "trafficpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e72bc28-e399-4304-a438-ab19d320aeb3",
+              "name": "Successfully retrieved TrafficPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"TrafficPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-07-11T06:40:37.810Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        },\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        }\n      ],\n      \"allowMethods\": [\n        \"string\",\n        \"string\"\n      ],\n      \"allowHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"exposeHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"maxAge\": \"string\",\n      \"allowCredentials\": true\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": true\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"timeout\": {\n      \"request\": \"string\",\n      \"idle\": \"string\"\n    },\n    \"retries\": {\n      \"attempts\": 8534,\n      \"perTryTimeout\": \"string\",\n      \"backOff\": {\n        \"baseInterval\": \"string\",\n        \"maxInterval\": \"string\"\n      },\n      \"retryOn\": \"string\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-05-06T21:13:18.265Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1948-09-21T10:47:16.866Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6de0dc3f-5073-4573-b2e2-48926daa5b9d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "93d3c2f1-a470-4ab7-b5f5-6ec2b79a2815",
+              "name": "TrafficPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12ac455b-6b0f-41b7-a1cf-3c69151ed119",
+          "name": "Kgateway Replace a TrafficPolicy",
+          "request": {
+            "name": "Kgateway Replace a TrafficPolicy",
+            "description": {
+              "content": "Replace a specific TrafficPolicy resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "trafficpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a1e91a83-0250-4f2e-b7f2-115d95514b3e",
+              "name": "Successfully replaced TrafficPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"TrafficPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-07-11T06:40:37.810Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        },\n        {\n          \"type\": \"Regex\",\n          \"value\": \"string\"\n        }\n      ],\n      \"allowMethods\": [\n        \"string\",\n        \"string\"\n      ],\n      \"allowHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"exposeHeaders\": [\n        \"string\",\n        \"string\"\n      ],\n      \"maxAge\": \"string\",\n      \"allowCredentials\": true\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": true\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      },\n      \"disable\": false\n    },\n    \"timeout\": {\n      \"request\": \"string\",\n      \"idle\": \"string\"\n    },\n    \"retries\": {\n      \"attempts\": 8534,\n      \"perTryTimeout\": \"string\",\n      \"backOff\": {\n        \"baseInterval\": \"string\",\n        \"maxInterval\": \"string\"\n      },\n      \"retryOn\": \"string\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"remove\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"Unknown\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-05-06T21:13:18.265Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"True\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1948-09-21T10:47:16.866Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4fbf4d35-33b6-45d4-908b-2b179a222b32",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2db6a7ab-2b30-4843-9038-979951507bf3",
+              "name": "TrafficPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2005-02-12T08:14:01.288Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"cors\": {\n      \"allowOrigins\": [\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"type\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"allowMethods\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"allowHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"exposeHeaders\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"maxAge\": \"<string>\",\n      \"allowCredentials\": \"<boolean>\"\n    },\n    \"extAuth\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"extProc\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"rateLimit\": {\n      \"extensionRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      },\n      \"disable\": \"<boolean>\"\n    },\n    \"timeout\": {\n      \"request\": \"<string>\",\n      \"idle\": \"<string>\"\n    },\n    \"retries\": {\n      \"attempts\": \"<integer>\",\n      \"perTryTimeout\": \"<string>\",\n      \"backOff\": {\n        \"baseInterval\": \"<string>\",\n        \"maxInterval\": \"<string>\"\n      },\n      \"retryOn\": \"<string>\"\n    },\n    \"requestHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"responseHeaderModifier\": {\n      \"set\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"add\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ],\n      \"remove\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "41c2261e-73bd-41cc-99bf-8e9a8c149e7e",
+          "name": "Kgateway Delete a TrafficPolicy",
+          "request": {
+            "name": "Kgateway Delete a TrafficPolicy",
+            "description": {
+              "content": "Delete a specific TrafficPolicy resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "trafficpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6910c30c-dfd4-4a0d-816a-b5016f07e96d",
+              "name": "Successfully deleted TrafficPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c8ed9930-ebbd-4e27-a217-81b7923662d5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8e371990-1522-41fb-bc7e-843c0fb96380",
+              "name": "TrafficPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "trafficpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Kubernetes API server hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "kubernetes.default.svc",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}/apis/gateway.kgateway.dev/v1alpha1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3ee57bfb-1a1b-426f-890d-3a8cd2e26c9b",
+    "name": "kgateway Kubernetes Gateway AIBackend TrafficPolicy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. These resources are managed through the Kubernetes API server.\n\nContact Support:\n Name: kgateway",
+      "type": "text/plain"
+    }
+  }
+}

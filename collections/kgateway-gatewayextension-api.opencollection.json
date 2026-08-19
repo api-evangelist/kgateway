@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "kgateway Kubernetes Gateway AIBackend GatewayExtension API",
+    "version": "2.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GatewayExtension",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kgateway List GatewayExtension resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayextensions",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned objects by labels."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for paginated list requests."
+              }
+            ]
+          },
+          "docs": "List all GatewayExtension resources in the specified namespace. GatewayExtensions integrate external services with a Gateway."
+        },
+        {
+          "info": {
+            "name": "Kgateway Create a GatewayExtension",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayextensions",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a GatewayExtension resource to integrate external services such as external auth, rate limiting, or external processing with a Gateway."
+        },
+        {
+          "info": {
+            "name": "Kgateway Get a GatewayExtension",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayextensions/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific GatewayExtension resource by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Replace a GatewayExtension",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayextensions/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a specific GatewayExtension resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Delete a GatewayExtension",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/gatewayextensions/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Delete a specific GatewayExtension resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1300 @@
+{
+  "item": [
+    {
+      "id": "bdbbc2b9-d92a-443f-9a1a-2653154746da",
+      "name": "HTTPListenerPolicy",
+      "description": {
+        "content": "Apply policies to all HTTP and HTTPS listeners defined on a Gateway. Configure listener-level settings that affect all traffic passing through the specified listeners.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "141e1a08-4a79-4816-a783-ca4bb243e401",
+          "name": "Kgateway List HTTPListenerPolicy resources",
+          "request": {
+            "name": "Kgateway List HTTPListenerPolicy resources",
+            "description": {
+              "content": "List all HTTPListenerPolicy resources in the specified namespace. HTTPListenerPolicies apply policies to all HTTP and HTTPS listeners on a Gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "httplistenerpolicies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned objects by labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "Continue token for paginated list requests."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e32cd80b-2513-43a9-b4b9-86968464f50c",
+              "name": "Successfully retrieved list of HTTPListenerPolicy resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"HTTPListenerPolicyList\",\n  \"metadata\": {\n    \"continue\": \"string\",\n    \"resourceVersion\": \"string\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"HTTPListenerPolicy\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1997-03-24T01:11:04.928Z\"\n      },\n      \"spec\": {\n        \"targetRefs\": [\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          },\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          }\n        ],\n        \"accessLogging\": {},\n        \"buffer\": {\n          \"maxRequestBytes\": 4799\n        },\n        \"celValidation\": {\n          \"rules\": [\n            {\n              \"expression\": \"string\",\n              \"action\": \"Allow\"\n            },\n            {\n              \"expression\": \"string\",\n              \"action\": \"Allow\"\n            }\n          ]\n        },\n        \"basicAuth\": {\n          \"credentialsSecretRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          }\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1973-10-29T06:36:59.725Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1994-10-19T08:17:00.427Z\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"HTTPListenerPolicy\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1949-04-15T21:30:28.689Z\"\n      },\n      \"spec\": {\n        \"targetRefs\": [\n          {\n            \"kind\": \"HTTPRoute\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          },\n          {\n            \"kind\": \"Gateway\",\n            \"name\": \"string\",\n            \"group\": \"gateway.networking.k8s.io\",\n            \"namespace\": \"string\",\n            \"sectionName\": \"string\"\n          }\n        ],\n        \"accessLogging\": {},\n        \"buffer\": {\n          \"maxRequestBytes\": 9728\n        },\n        \"celValidation\": {\n          \"rules\": [\n            {\n              \"expression\": \"string\",\n              \"action\": \"Allow\"\n            },\n            {\n              \"expression\": \"string\",\n              \"action\": \"Deny\"\n            }\n          ]\n        },\n        \"basicAuth\": {\n          \"credentialsSecretRef\": {\n            \"name\": \"string\",\n            \"namespace\": \"string\"\n          }\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"2019-03-26T02:53:20.011Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"2021-08-10T04:51:47.599Z\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "857c135b-7a49-473b-bbd9-ae15ba5f0ef7",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca37c225-c61e-448a-aa7e-efe170c3d973",
+          "name": "Kgateway Create an HTTPListenerPolicy",
+          "request": {
+            "name": "Kgateway Create an HTTPListenerPolicy",
+            "description": {
+              "content": "Create an HTTPListenerPolicy resource to apply policies to all HTTP and HTTPS listeners defined on a Gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "httplistenerpolicies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "da5d45f3-2694-46ae-b2d4-4aaaf307d97a",
+              "name": "Successfully created HTTPListenerPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"HTTPListenerPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2004-04-10T11:21:06.624Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": {},\n    \"buffer\": {\n      \"maxRequestBytes\": 99\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        },\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1946-12-09T18:37:36.112Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-08-23T01:26:29.188Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76b332fb-db65-435c-9173-e7614152be88",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ac59b96-0f64-42e0-92ee-8dfda3e6c982",
+              "name": "Conflict - resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87dbfb43-a328-4876-91c3-0f7e791aa5b2",
+          "name": "Kgateway Get an HTTPListenerPolicy",
+          "request": {
+            "name": "Kgateway Get an HTTPListenerPolicy",
+            "description": {
+              "content": "Retrieve a specific HTTPListenerPolicy resource by name and namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "httplistenerpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "413b38fe-c1ac-4109-a935-352f08516747",
+              "name": "Successfully retrieved HTTPListenerPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"HTTPListenerPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2004-04-10T11:21:06.624Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": {},\n    \"buffer\": {\n      \"maxRequestBytes\": 99\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        },\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1946-12-09T18:37:36.112Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-08-23T01:26:29.188Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9072210-16fd-496b-a550-7366d46f76c5",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9c5c9f72-90f0-45e7-a98a-036accddea02",
+              "name": "HTTPListenerPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2e7f998-bc51-460f-b3bd-86b69a573f4c",
+          "name": "Kgateway Replace an HTTPListenerPolicy",
+          "request": {
+            "name": "Kgateway Replace an HTTPListenerPolicy",
+            "description": {
+              "content": "Replace a specific HTTPListenerPolicy resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "httplistenerpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"name\": \"<string>\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"<string>\",\n        \"sectionName\": \"<string>\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9e6a3ca9-3265-4efa-ab47-bc03db09725e",
+              "name": "Successfully replaced HTTPListenerPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"HTTPListenerPolicy\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\",\n      \"key_2\": \"string\",\n      \"key_3\": \"string\",\n      \"key_4\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2004-04-10T11:21:06.624Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"Gateway\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": {},\n    \"buffer\": {\n      \"maxRequestBytes\": 99\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        },\n        {\n          \"expression\": \"string\",\n          \"action\": \"Deny\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1946-12-09T18:37:36.112Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"2015-08-23T01:26:29.188Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a1976cc0-5788-48c9-b24c-1a1ddb35413e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "558bb0d1-7f61-4e10-895c-e1590ea008a7",
+              "name": "HTTPListenerPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"2010-01-23T23:38:05.430Z\"\n  },\n  \"spec\": {\n    \"targetRefs\": [\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      },\n      {\n        \"kind\": \"HTTPRoute\",\n        \"name\": \"string\",\n        \"group\": \"gateway.networking.k8s.io\",\n        \"namespace\": \"string\",\n        \"sectionName\": \"string\"\n      }\n    ],\n    \"accessLogging\": \"<object>\",\n    \"buffer\": {\n      \"maxRequestBytes\": \"<integer>\"\n    },\n    \"celValidation\": {\n      \"rules\": [\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        },\n        {\n          \"expression\": \"<string>\",\n          \"action\": \"<string>\"\n        }\n      ]\n    },\n    \"basicAuth\": {\n      \"credentialsSecretRef\": {\n        \"name\": \"<string>\",\n        \"namespace\": \"<string>\"\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c5462dc8-248c-4d6d-b774-2bdea95388dc",
+          "name": "Kgateway Delete an HTTPListenerPolicy",
+          "request": {
+            "name": "Kgateway Delete an HTTPListenerPolicy",
+            "description": {
+              "content": "Delete a specific HTTPListenerPolicy resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "httplistenerpolicies",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5f277b44-4627-43bd-8836-7809ffe4d724",
+              "name": "Successfully deleted HTTPListenerPolicy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4edfe807-6a05-4bee-bd92-11a99d9c2c68",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9533308c-95c3-47b7-b390-fe06ccef66d4",
+              "name": "HTTPListenerPolicy not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "httplistenerpolicies",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Kubernetes API server hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "kubernetes.default.svc",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}/apis/gateway.kgateway.dev/v1alpha1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dbdadd60-e118-4a1e-87b8-17d89bf31387",
+    "name": "kgateway Kubernetes Gateway AIBackend HTTPListenerPolicy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. These resources are managed through the Kubernetes API server.\n\nContact Support:\n Name: kgateway",
+      "type": "text/plain"
+    }
+  }
+}

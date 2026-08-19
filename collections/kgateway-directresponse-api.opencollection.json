@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "kgateway Kubernetes Gateway AIBackend DirectResponse API",
+    "version": "2.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "DirectResponse",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kgateway List DirectResponse resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/directresponses",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned objects by labels."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for paginated list requests."
+              }
+            ]
+          },
+          "docs": "List all DirectResponse resources in the specified namespace. DirectResponse resources allow Gateways to directly respond to requests with custom HTTP response codes and bodies."
+        },
+        {
+          "info": {
+            "name": "Kgateway Create a DirectResponse",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/directresponses",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a DirectResponse resource to configure a Gateway to directly respond to incoming requests with a custom HTTP response."
+        },
+        {
+          "info": {
+            "name": "Kgateway Get a DirectResponse",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/directresponses/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific DirectResponse resource by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Replace a DirectResponse",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/directresponses/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a specific DirectResponse resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Delete a DirectResponse",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/directresponses/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Delete a specific DirectResponse resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

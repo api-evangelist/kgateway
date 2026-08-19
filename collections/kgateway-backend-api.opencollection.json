@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "kgateway Kubernetes Gateway AIBackend Backend API",
+    "version": "2.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Backend",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kgateway List Backend resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/backends",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned objects by labels."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for paginated list requests."
+              }
+            ]
+          },
+          "docs": "List all Backend resources in the specified namespace. Backends define routable external services such as AI providers, AWS Lambda functions, or static servers."
+        },
+        {
+          "info": {
+            "name": "Kgateway Create a Backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/backends",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Backend resource to define a routable backend such as an AI provider, AWS Lambda function, or static server."
+        },
+        {
+          "info": {
+            "name": "Kgateway Get a Backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/backends/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific Backend resource by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Replace a Backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/backends/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a specific Backend resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Delete a Backend",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/backends/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Delete a specific Backend resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

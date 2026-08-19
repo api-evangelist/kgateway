@@ -1,0 +1,1300 @@
+{
+  "item": [
+    {
+      "id": "81d62441-f03b-4b9a-a94b-cb624be977ea",
+      "name": "Backend",
+      "description": {
+        "content": "Define routable backends such as AI providers (OpenAI, Azure, Gemini), AWS Lambda functions, or static servers for use by Gateways. Reference Backend resources in HTTPRoute to route traffic to external services.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "556d05d0-c021-4732-969b-c03fbb688ffd",
+          "name": "Kgateway List Backend resources",
+          "request": {
+            "name": "Kgateway List Backend resources",
+            "description": {
+              "content": "List all Backend resources in the specified namespace. Backends define routable external services such as AI providers, AWS Lambda functions, or static servers.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "backends"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "labelSelector",
+                  "value": "<string>",
+                  "description": "A selector to restrict the list of returned objects by labels."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of resources to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "continue",
+                  "value": "<string>",
+                  "description": "Continue token for paginated list requests."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ed3a2bc4-b055-4576-b5a3-23cc285a75b1",
+              "name": "Successfully retrieved list of Backend resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"string\",\n  \"kind\": \"BackendList\",\n  \"metadata\": {\n    \"continue\": \"string\",\n    \"resourceVersion\": \"string\"\n  },\n  \"items\": [\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"Backend\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1996-01-13T15:55:14.361Z\"\n      },\n      \"spec\": {\n        \"type\": \"AI\",\n        \"static\": {\n          \"hosts\": [\n            {\n              \"host\": \"string\",\n              \"port\": 9211,\n              \"tls\": {\n                \"sni\": \"string\"\n              }\n            },\n            {\n              \"host\": \"string\",\n              \"port\": 5981,\n              \"tls\": {\n                \"sni\": \"string\"\n              }\n            }\n          ]\n        },\n        \"aws\": {\n          \"region\": \"string\",\n          \"lambdaFunctionName\": \"string\",\n          \"accountId\": \"string\",\n          \"roleArn\": \"string\"\n        },\n        \"ai\": {\n          \"provider\": {\n            \"type\": \"mistral\",\n            \"openai\": {\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            },\n            \"azure\": {\n              \"endpoint\": \"string\",\n              \"deploymentName\": \"string\",\n              \"apiVersion\": \"string\",\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            },\n            \"gemini\": {\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            }\n          }\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1988-03-17T08:49:38.235Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1988-01-15T23:02:21.354Z\"\n          }\n        ]\n      }\n    },\n    {\n      \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n      \"kind\": \"Backend\",\n      \"metadata\": {\n        \"name\": \"string\",\n        \"namespace\": \"string\",\n        \"labels\": {\n          \"key_0\": \"string\"\n        },\n        \"annotations\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": \"string\"\n        },\n        \"resourceVersion\": \"string\",\n        \"creationTimestamp\": \"1973-11-16T20:15:21.497Z\"\n      },\n      \"spec\": {\n        \"type\": \"Static\",\n        \"static\": {\n          \"hosts\": [\n            {\n              \"host\": \"string\",\n              \"port\": 2869,\n              \"tls\": {\n                \"sni\": \"string\"\n              }\n            },\n            {\n              \"host\": \"string\",\n              \"port\": 9968,\n              \"tls\": {\n                \"sni\": \"string\"\n              }\n            }\n          ]\n        },\n        \"aws\": {\n          \"region\": \"string\",\n          \"lambdaFunctionName\": \"string\",\n          \"accountId\": \"string\",\n          \"roleArn\": \"string\"\n        },\n        \"ai\": {\n          \"provider\": {\n            \"type\": \"gemini\",\n            \"openai\": {\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            },\n            \"azure\": {\n              \"endpoint\": \"string\",\n              \"deploymentName\": \"string\",\n              \"apiVersion\": \"string\",\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            },\n            \"gemini\": {\n              \"authToken\": {\n                \"secretRef\": {\n                  \"name\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  \"namespace\": {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                }\n              }\n            }\n          }\n        }\n      },\n      \"status\": {\n        \"conditions\": [\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"1962-04-01T01:10:30.028Z\"\n          },\n          {\n            \"type\": \"string\",\n            \"status\": \"string\",\n            \"reason\": \"string\",\n            \"message\": \"string\",\n            \"lastTransitionTime\": \"2000-11-14T17:10:15.872Z\"\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56156b65-075c-4b91-a64b-d00524f1a048",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "labelSelector",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "continue",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09bef604-fde1-4f00-bd1a-651516cabacc",
+          "name": "Kgateway Create a Backend",
+          "request": {
+            "name": "Kgateway Create a Backend",
+            "description": {
+              "content": "Create a Backend resource to define a routable backend such as an AI provider, AWS Lambda function, or static server.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "backends"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a973a8a2-7e0d-4f54-93ba-35fb3e3e1971",
+              "name": "Successfully created Backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"Backend\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1983-01-11T10:59:26.443Z\"\n  },\n  \"spec\": {\n    \"type\": \"Static\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"string\",\n          \"port\": 3586,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        },\n        {\n          \"host\": \"string\",\n          \"port\": 1187,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"string\",\n      \"lambdaFunctionName\": \"string\",\n      \"accountId\": \"string\",\n      \"roleArn\": \"string\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"mistral\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"string\",\n          \"deploymentName\": \"string\",\n          \"apiVersion\": \"string\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1984-08-16T23:11:45.785Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1991-09-03T15:59:25.255Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "694a4f38-13ae-4bf6-b2f1-7139a49f9336",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a779fb5-dbe2-4ba1-8502-12f0f9c3ea6b",
+              "name": "Conflict - resource already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "117cc341-9adc-466f-b706-9981840936d4",
+          "name": "Kgateway Get a Backend",
+          "request": {
+            "name": "Kgateway Get a Backend",
+            "description": {
+              "content": "Retrieve a specific Backend resource by name and namespace.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "backends",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "640800be-4a22-477b-89b1-2a1546b4c9a9",
+              "name": "Successfully retrieved Backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"Backend\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1983-01-11T10:59:26.443Z\"\n  },\n  \"spec\": {\n    \"type\": \"Static\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"string\",\n          \"port\": 3586,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        },\n        {\n          \"host\": \"string\",\n          \"port\": 1187,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"string\",\n      \"lambdaFunctionName\": \"string\",\n      \"accountId\": \"string\",\n      \"roleArn\": \"string\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"mistral\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"string\",\n          \"deploymentName\": \"string\",\n          \"apiVersion\": \"string\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1984-08-16T23:11:45.785Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1991-09-03T15:59:25.255Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8486ad1b-b03a-42de-a76a-97d77df5c32b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "be69cd79-5779-4efe-aac8-2d407b255fb9",
+              "name": "Backend not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce425842-9af5-48bc-9b4c-62581666078c",
+          "name": "Kgateway Replace a Backend",
+          "request": {
+            "name": "Kgateway Replace a Backend",
+            "description": {
+              "content": "Replace a specific Backend resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "backends",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"<string>\",\n    \"namespace\": \"<string>\",\n    \"labels\": {\n      \"key_0\": \"<string>\"\n    },\n    \"annotations\": {\n      \"key_0\": \"<string>\"\n    },\n    \"resourceVersion\": \"<string>\",\n    \"creationTimestamp\": \"<dateTime>\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "28d34533-4662-45e8-a3b2-c37a6a378eb4",
+              "name": "Successfully replaced Backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"apiVersion\": \"gateway.kgateway.dev/v1alpha1\",\n  \"kind\": \"Backend\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1983-01-11T10:59:26.443Z\"\n  },\n  \"spec\": {\n    \"type\": \"Static\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"string\",\n          \"port\": 3586,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        },\n        {\n          \"host\": \"string\",\n          \"port\": 1187,\n          \"tls\": {\n            \"sni\": \"string\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"string\",\n      \"lambdaFunctionName\": \"string\",\n      \"accountId\": \"string\",\n      \"roleArn\": \"string\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"mistral\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"string\",\n          \"deploymentName\": \"string\",\n          \"apiVersion\": \"string\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"string\",\n              \"namespace\": \"string\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1984-08-16T23:11:45.785Z\"\n      },\n      {\n        \"type\": \"string\",\n        \"status\": \"string\",\n        \"reason\": \"string\",\n        \"message\": \"string\",\n        \"lastTransitionTime\": \"1991-09-03T15:59:25.255Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92bc14c0-3e25-4217-bbcb-9020a9e8a627",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1551efd-bc6a-4e21-819f-31203deebd39",
+              "name": "Backend not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"apiVersion\": \"<string>\",\n  \"kind\": \"<string>\",\n  \"metadata\": {\n    \"name\": \"string\",\n    \"namespace\": \"string\",\n    \"labels\": {\n      \"key_0\": \"string\"\n    },\n    \"annotations\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    \"resourceVersion\": \"string\",\n    \"creationTimestamp\": \"1986-11-27T11:15:38.251Z\"\n  },\n  \"spec\": {\n    \"type\": \"<string>\",\n    \"static\": {\n      \"hosts\": [\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        },\n        {\n          \"host\": \"<string>\",\n          \"port\": \"<integer>\",\n          \"tls\": {\n            \"sni\": \"<string>\"\n          }\n        }\n      ]\n    },\n    \"aws\": {\n      \"region\": \"<string>\",\n      \"lambdaFunctionName\": \"<string>\",\n      \"accountId\": \"<string>\",\n      \"roleArn\": \"<string>\"\n    },\n    \"ai\": {\n      \"provider\": {\n        \"type\": \"<string>\",\n        \"openai\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"azure\": {\n          \"endpoint\": \"<string>\",\n          \"deploymentName\": \"<string>\",\n          \"apiVersion\": \"<string>\",\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        },\n        \"gemini\": {\n          \"authToken\": {\n            \"secretRef\": {\n              \"name\": \"<string>\",\n              \"namespace\": \"<string>\"\n            }\n          }\n        }\n      }\n    }\n  },\n  \"status\": {\n    \"conditions\": [\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      },\n      {\n        \"type\": \"<string>\",\n        \"status\": \"<string>\",\n        \"reason\": \"<string>\",\n        \"message\": \"<string>\",\n        \"lastTransitionTime\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32604b0a-2d28-49ff-be73-5f789593c16f",
+          "name": "Kgateway Delete a Backend",
+          "request": {
+            "name": "Kgateway Delete a Backend",
+            "description": {
+              "content": "Delete a specific Backend resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "namespaces",
+                ":namespace",
+                "backends",
+                ":name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "namespace",
+                  "description": "(Required) The Kubernetes namespace."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "name",
+                  "description": "(Required) The name of the resource."
+                },
+                {
+                  "description": "The Kubernetes API server hostname",
+                  "type": "any",
+                  "value": "{{kubernetes-api-server}}",
+                  "key": "kubernetes-api-server"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7463ee3f-5934-4c8b-a692-363553219765",
+              "name": "Successfully deleted Backend.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5a9d7d9f-a978-4d63-a245-3cc25475ea8b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27cda721-305a-4ee3-aa28-638093b252a3",
+              "name": "Backend not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "namespaces",
+                    ":namespace",
+                    "backends",
+                    ":name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "namespace",
+                      "description": "(Required) The Kubernetes namespace."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "name",
+                      "description": "(Required) The name of the resource."
+                    },
+                    {
+                      "description": "The Kubernetes API server hostname",
+                      "type": "any",
+                      "value": "{{kubernetes-api-server}}",
+                      "key": "kubernetes-api-server"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The Kubernetes API server hostname",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "kubernetes.default.svc",
+      "key": "kubernetes-api-server"
+    },
+    {
+      "type": "string",
+      "value": "https://{{kubernetes-api-server}}/apis/gateway.kgateway.dev/v1alpha1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "74b0d0ed-3843-42ae-bacf-06a3f434f7ac",
+    "name": "kgateway Kubernetes Gateway AIBackend Backend API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. These resources are managed through the Kubernetes API server.\n\nContact Support:\n Name: kgateway",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "kgateway Kubernetes Gateway AIBackend TrafficPolicy API",
+    "version": "2.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TrafficPolicy",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kgateway List TrafficPolicy resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/trafficpolicies",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "labelSelector",
+                "value": "",
+                "type": "query",
+                "description": "A selector to restrict the list of returned objects by labels."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of resources to return."
+              },
+              {
+                "name": "continue",
+                "value": "",
+                "type": "query",
+                "description": "Continue token for paginated list requests."
+              }
+            ]
+          },
+          "docs": "List all TrafficPolicy resources in the specified namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Create a TrafficPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/trafficpolicies",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a TrafficPolicy resource to attach traffic management policies to routes in an HTTPRoute resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Get a TrafficPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/trafficpolicies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Retrieve a specific TrafficPolicy resource by name and namespace."
+        },
+        {
+          "info": {
+            "name": "Kgateway Replace a TrafficPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/trafficpolicies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace a specific TrafficPolicy resource."
+        },
+        {
+          "info": {
+            "name": "Kgateway Delete a TrafficPolicy",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{kubernetes-api-server}/apis/gateway.kgateway.dev/v1alpha1/namespaces/:namespace/trafficpolicies/:name",
+            "params": [
+              {
+                "name": "namespace",
+                "value": "",
+                "type": "path",
+                "description": "The Kubernetes namespace."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "The name of the resource."
+              }
+            ]
+          },
+          "docs": "Delete a specific TrafficPolicy resource."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
