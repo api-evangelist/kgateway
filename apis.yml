@@ -191,7 +191,7 @@ apis:
   humanURL: https://kgateway.dev/docs/envoy/latest/reference/api/
   baseURL: https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1
   tags:
-  - Traffic Policy
+  - TrafficPolicy
   tags_raw:
   - TrafficPolicy
   properties:
