@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: kgateway Kubernetes Gateway AIBackend TrafficPolicy API
-  description: kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API. kgateway provides custom resource definitions (CRDs) under the gateway.kgateway.dev API group for configuring traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. These resources are managed through the Kubernetes API server.
+  title: kgateway Kubernetes Gateway Traffic Policy API
+  description: kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents.
   version: 2.1.0
   contact:
     name: kgateway
@@ -132,91 +132,7 @@ paths:
         '404':
           description: TrafficPolicy not found
 components:
-  parameters:
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continue token for paginated list requests.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
   schemas:
-    TrafficPolicyList:
-      type: object
-      description: List of TrafficPolicy resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - TrafficPolicyList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficPolicy'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace of the resource.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Map of string keys and values for organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for storing arbitrary metadata.
-        resourceVersion:
-          type: string
-          description: An opaque value that represents the internal version of this object.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp representing the server time when this object was created.
     TrafficPolicy:
       type: object
       description: TrafficPolicy attaches traffic management policies to routes in an HTTPRoute or all routes served by a Gateway.
@@ -424,6 +340,27 @@ components:
                   lastTransitionTime:
                     type: string
                     format: date-time
+    TrafficPolicyList:
+      type: object
+      description: List of TrafficPolicy resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - TrafficPolicyList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficPolicy'
     PolicyTargetRef:
       type: object
       description: Reference to a target resource for policy attachment.
@@ -450,6 +387,69 @@ components:
       required:
       - kind
       - name
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

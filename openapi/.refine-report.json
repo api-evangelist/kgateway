@@ -1,13 +1,7 @@
 {
   "provider": "kgateway",
   "sources": [
-    "kgateway-aibackend-api-openapi.yml",
-    "kgateway-backend-api-openapi.yml",
-    "kgateway-directresponse-api-openapi.yml",
-    "kgateway-gatewayextension-api-openapi.yml",
-    "kgateway-gatewayparameters-api-openapi.yml",
-    "kgateway-httplistenerpolicy-api-openapi.yml",
-    "kgateway-trafficpolicy-api-openapi.yml"
+    "_original/kgateway-kubernetes-gateway-api-openapi.yml"
   ],
   "outputs": [
     "kgateway-aibackend-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "kgateway-kubernetes-gateway-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "kgateway-aibackend-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-backend-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-directresponse-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-gatewayextension-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-gatewayparameters-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-httplistenerpolicy-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "kgateway-trafficpolicy-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
