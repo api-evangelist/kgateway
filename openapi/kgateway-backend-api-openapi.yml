@@ -133,6 +133,13 @@ paths:
           description: Backend not found
 components:
   parameters:
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -147,11 +154,11 @@ components:
       description: A selector to restrict the list of returned objects by labels.
       schema:
         type: string
-    Name:
-      name: name
+    Namespace:
+      name: namespace
       in: path
       required: true
-      description: The name of the resource.
+      description: The Kubernetes namespace.
       schema:
         type: string
     Continue:
@@ -161,35 +168,7 @@ components:
       description: Continue token for paginated list requests.
       schema:
         type: string
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
   schemas:
-    BackendList:
-      type: object
-      description: List of Backend resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - BackendList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Backend'
     Backend:
       type: object
       description: Backend defines a routable backend such as an AI provider, AWS Lambda function, or static server for use by Gateways.
@@ -360,6 +339,27 @@ components:
           type: string
           format: date-time
           description: Timestamp representing the server time when this object was created.
+    BackendList:
+      type: object
+      description: List of Backend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - BackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Backend'
   securitySchemes:
     BearerAuth:
       type: http

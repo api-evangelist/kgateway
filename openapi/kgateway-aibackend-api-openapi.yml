@@ -133,20 +133,6 @@ paths:
           description: AIBackend not found
 components:
   parameters:
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
     Name:
       name: name
       in: path
@@ -154,6 +140,13 @@ components:
       description: The name of the resource.
       schema:
         type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
     Continue:
       name: continue
       in: query
@@ -168,55 +161,14 @@ components:
       description: The Kubernetes namespace.
       schema:
         type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
   schemas:
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace of the resource.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Map of string keys and values for organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for storing arbitrary metadata.
-        resourceVersion:
-          type: string
-          description: An opaque value that represents the internal version of this object.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp representing the server time when this object was created.
-    AIBackendList:
-      type: object
-      description: List of AIBackend resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - AIBackendList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIBackend'
     AIBackend:
       type: object
       description: AIBackend configures AI provider backends with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini.
@@ -341,6 +293,54 @@ components:
                   lastTransitionTime:
                     type: string
                     format: date-time
+    AIBackendList:
+      type: object
+      description: List of AIBackend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - AIBackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIBackend'
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
   securitySchemes:
     BearerAuth:
       type: http

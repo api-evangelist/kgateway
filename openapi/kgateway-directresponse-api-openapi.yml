@@ -133,6 +133,13 @@ paths:
           description: DirectResponse not found
 components:
   parameters:
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -140,18 +147,18 @@ components:
       description: Maximum number of resources to return.
       schema:
         type: integer
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
     LabelSelector:
       name: labelSelector
       in: query
       required: false
       description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
       schema:
         type: string
     Continue:
@@ -161,14 +168,34 @@ components:
       description: Continue token for paginated list requests.
       schema:
         type: string
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
   schemas:
+    ObjectMeta:
+      type: object
+      description: Standard Kubernetes object metadata.
+      properties:
+        name:
+          type: string
+          description: Name of the resource.
+        namespace:
+          type: string
+          description: Namespace of the resource.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
     DirectResponse:
       type: object
       description: DirectResponse configures a Gateway to directly respond to incoming requests with a custom HTTP response code and body.
@@ -238,33 +265,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/DirectResponse'
-    ObjectMeta:
-      type: object
-      description: Standard Kubernetes object metadata.
-      properties:
-        name:
-          type: string
-          description: Name of the resource.
-        namespace:
-          type: string
-          description: Namespace of the resource.
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          description: Map of string keys and values for organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for storing arbitrary metadata.
-        resourceVersion:
-          type: string
-          description: An opaque value that represents the internal version of this object.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp representing the server time when this object was created.
   securitySchemes:
     BearerAuth:
       type: http
