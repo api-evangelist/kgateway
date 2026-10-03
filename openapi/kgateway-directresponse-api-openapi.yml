@@ -133,25 +133,18 @@ paths:
           description: DirectResponse not found
 components:
   parameters:
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
     Namespace:
       name: namespace
       in: path
       required: true
       description: The Kubernetes namespace.
+      schema:
+        type: string
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
       schema:
         type: string
     LabelSelector:
@@ -168,7 +161,35 @@ components:
       description: Continue token for paginated list requests.
       schema:
         type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
   schemas:
+    DirectResponseList:
+      type: object
+      description: List of DirectResponse resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - DirectResponseList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DirectResponse'
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -244,27 +265,6 @@ components:
                   lastTransitionTime:
                     type: string
                     format: date-time
-    DirectResponseList:
-      type: object
-      description: List of DirectResponse resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - DirectResponseList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DirectResponse'
   securitySchemes:
     BearerAuth:
       type: http

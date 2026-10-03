@@ -132,70 +132,28 @@ paths:
         '404':
           description: GatewayParameters not found
 components:
-  parameters:
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continue token for paginated list requests.
-      schema:
-        type: string
   schemas:
-    ObjectMeta:
+    GatewayParametersList:
       type: object
-      description: Standard Kubernetes object metadata.
+      description: List of GatewayParameters resources.
       properties:
-        name:
+        apiVersion:
           type: string
-          description: Name of the resource.
-        namespace:
+        kind:
           type: string
-          description: Namespace of the resource.
-        labels:
+          enum:
+          - GatewayParametersList
+        metadata:
           type: object
-          additionalProperties:
-            type: string
-          description: Map of string keys and values for organizing resources.
-        annotations:
-          type: object
-          additionalProperties:
-            type: string
-          description: Annotations for storing arbitrary metadata.
-        resourceVersion:
-          type: string
-          description: An opaque value that represents the internal version of this object.
-        creationTimestamp:
-          type: string
-          format: date-time
-          description: Timestamp representing the server time when this object was created.
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayParameters'
     GatewayParameters:
       type: object
       description: GatewayParameters customizes gateway infrastructure deployment settings including replicas, container configuration, and proxy provisioning.
@@ -317,27 +275,69 @@ components:
                   lastTransitionTime:
                     type: string
                     format: date-time
-    GatewayParametersList:
+    ObjectMeta:
       type: object
-      description: List of GatewayParameters resources.
+      description: Standard Kubernetes object metadata.
       properties:
-        apiVersion:
+        name:
           type: string
-        kind:
+          description: Name of the resource.
+        namespace:
           type: string
-          enum:
-          - GatewayParametersList
-        metadata:
+          description: Namespace of the resource.
+        labels:
           type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GatewayParameters'
+          additionalProperties:
+            type: string
+          description: Map of string keys and values for organizing resources.
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          description: Annotations for storing arbitrary metadata.
+        resourceVersion:
+          type: string
+          description: An opaque value that represents the internal version of this object.
+        creationTimestamp:
+          type: string
+          format: date-time
+          description: Timestamp representing the server time when this object was created.
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
   securitySchemes:
     BearerAuth:
       type: http
