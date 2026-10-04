@@ -299,11 +299,11 @@ components:
       description: The Kubernetes namespace.
       schema:
         type: string
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
       schema:
         type: string
     LabelSelector:
@@ -313,13 +313,6 @@ components:
       description: A selector to restrict the list of returned objects by labels.
       schema:
         type: string
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continue token for paginated list requests.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -327,6 +320,13 @@ components:
       description: Maximum number of resources to return.
       schema:
         type: integer
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

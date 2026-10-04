@@ -132,28 +132,43 @@ paths:
         '404':
           description: AIBackend not found
 components:
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
   schemas:
-    AIBackendList:
-      type: object
-      description: List of AIBackend resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - AIBackendList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AIBackend'
     AIBackend:
       type: object
       description: AIBackend configures AI provider backends with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini.
@@ -305,42 +320,27 @@ components:
           type: string
           format: date-time
           description: Timestamp representing the server time when this object was created.
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continue token for paginated list requests.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
+    AIBackendList:
+      type: object
+      description: List of AIBackend resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - AIBackendList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AIBackend'
   securitySchemes:
     BearerAuth:
       type: http

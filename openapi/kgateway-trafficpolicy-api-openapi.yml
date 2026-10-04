@@ -132,54 +132,43 @@ paths:
         '404':
           description: TrafficPolicy not found
 components:
+  parameters:
+    Namespace:
+      name: namespace
+      in: path
+      required: true
+      description: The Kubernetes namespace.
+      schema:
+        type: string
+    Continue:
+      name: continue
+      in: query
+      required: false
+      description: Continue token for paginated list requests.
+      schema:
+        type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of resources to return.
+      schema:
+        type: integer
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
   schemas:
-    TrafficPolicyList:
-      type: object
-      description: List of TrafficPolicy resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - TrafficPolicyList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/TrafficPolicy'
-    PolicyTargetRef:
-      type: object
-      description: Reference to a target resource for policy attachment.
-      properties:
-        group:
-          type: string
-          description: Group is the group of the target resource.
-          default: gateway.networking.k8s.io
-        kind:
-          type: string
-          description: Kind is the kind of the target resource.
-          enum:
-          - Gateway
-          - HTTPRoute
-        name:
-          type: string
-          description: Name is the name of the target resource.
-        namespace:
-          type: string
-          description: Namespace is the namespace of the target resource.
-        sectionName:
-          type: string
-          description: SectionName is the name of a section within the target resource to apply the policy to.
-      required:
-      - kind
-      - name
     TrafficPolicy:
       type: object
       description: TrafficPolicy attaches traffic management policies to routes in an HTTPRoute or all routes served by a Gateway.
@@ -387,6 +376,32 @@ components:
                   lastTransitionTime:
                     type: string
                     format: date-time
+    PolicyTargetRef:
+      type: object
+      description: Reference to a target resource for policy attachment.
+      properties:
+        group:
+          type: string
+          description: Group is the group of the target resource.
+          default: gateway.networking.k8s.io
+        kind:
+          type: string
+          description: Kind is the kind of the target resource.
+          enum:
+          - Gateway
+          - HTTPRoute
+        name:
+          type: string
+          description: Name is the name of the target resource.
+        namespace:
+          type: string
+          description: Namespace is the namespace of the target resource.
+        sectionName:
+          type: string
+          description: SectionName is the name of a section within the target resource to apply the policy to.
+      required:
+      - kind
+      - name
     ObjectMeta:
       type: object
       description: Standard Kubernetes object metadata.
@@ -414,42 +429,27 @@ components:
           type: string
           format: date-time
           description: Timestamp representing the server time when this object was created.
-  parameters:
-    Namespace:
-      name: namespace
-      in: path
-      required: true
-      description: The Kubernetes namespace.
-      schema:
-        type: string
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
-      schema:
-        type: string
-    Continue:
-      name: continue
-      in: query
-      required: false
-      description: Continue token for paginated list requests.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Maximum number of resources to return.
-      schema:
-        type: integer
+    TrafficPolicyList:
+      type: object
+      description: List of TrafficPolicy resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - TrafficPolicyList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficPolicy'
   securitySchemes:
     BearerAuth:
       type: http

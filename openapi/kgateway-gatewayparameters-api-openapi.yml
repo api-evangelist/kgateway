@@ -133,27 +133,6 @@ paths:
           description: GatewayParameters not found
 components:
   schemas:
-    GatewayParametersList:
-      type: object
-      description: List of GatewayParameters resources.
-      properties:
-        apiVersion:
-          type: string
-        kind:
-          type: string
-          enum:
-          - GatewayParametersList
-        metadata:
-          type: object
-          properties:
-            continue:
-              type: string
-            resourceVersion:
-              type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GatewayParameters'
     GatewayParameters:
       type: object
       description: GatewayParameters customizes gateway infrastructure deployment settings including replicas, container configuration, and proxy provisioning.
@@ -302,26 +281,33 @@ components:
           type: string
           format: date-time
           description: Timestamp representing the server time when this object was created.
+    GatewayParametersList:
+      type: object
+      description: List of GatewayParameters resources.
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+          enum:
+          - GatewayParametersList
+        metadata:
+          type: object
+          properties:
+            continue:
+              type: string
+            resourceVersion:
+              type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GatewayParameters'
   parameters:
     Namespace:
       name: namespace
       in: path
       required: true
       description: The Kubernetes namespace.
-      schema:
-        type: string
-    Name:
-      name: name
-      in: path
-      required: true
-      description: The name of the resource.
-      schema:
-        type: string
-    LabelSelector:
-      name: labelSelector
-      in: query
-      required: false
-      description: A selector to restrict the list of returned objects by labels.
       schema:
         type: string
     Continue:
@@ -331,6 +317,13 @@ components:
       description: Continue token for paginated list requests.
       schema:
         type: string
+    LabelSelector:
+      name: labelSelector
+      in: query
+      required: false
+      description: A selector to restrict the list of returned objects by labels.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -338,6 +331,13 @@ components:
       description: Maximum number of resources to return.
       schema:
         type: integer
+    Name:
+      name: name
+      in: path
+      required: true
+      description: The name of the resource.
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http
