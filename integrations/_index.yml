@@ -63,3 +63,55 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: kgateway-kubernetes-gateway-api-conformance
+  label: Kubernetes Gateway API conformance
+  partner: kubernetes
+  partner_name: Kubernetes Gateway API conformance
+  category: Gateway API conformance
+  type: register
+  channel: standard-directory
+  evidence: https://github.com/kubernetes-sigs/gateway-api/blob/aabc423cb84454bf0d047c0cb2ae0ca6e19fcc90/conformance/reports/v1.6/kgateway/v2.4.5-report.yaml
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Kubernetes Gateway API conformance reports (github.com/kubernetes-sigs/gateway-api @aabc423cb8)
+    spec_file: null
+    standard: Kubernetes Gateway API
+    role: gateway-api-conformance
+    registered_name: kgateway-dev / kgateway
+    website: https://github.com/kgateway-dev/kgateway
+    matched_domain: kgateway.dev
+    matched_by: domain
+    identity_source: github-org-website
+    implementations:
+    - kgateway-dev/kgateway
+    certified_products:
+    - product: GATEWAY-GRPC
+      newest_version: v1.6
+      lapsed: false
+    - product: GATEWAY-HTTP
+      newest_version: v1.6
+      lapsed: false
+    - product: GATEWAY-TCP
+      newest_version: v1.6
+      lapsed: false
+    - product: GATEWAY-TLS
+      newest_version: v1.6
+      lapsed: false
+    versions_reported:
+    - v1.2.1
+    - v1.3.0
+    - v1.4.0
+    - v1.4.1
+    - v1.5
+    - v1.5.0
+    - v1.5.1
+    - v1.6
+    - v1.6.0
+    current_window: v1.4+ (newest 3 minors in the register)
+    signal_note: certified_products = one entry per conformance PROFILE with a passing core result, lapsed outside
+      the current window; versions are context, never read
+    detected_by: sweep-api-management.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
