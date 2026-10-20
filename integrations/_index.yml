@@ -33,11 +33,11 @@
   category: Cloud native landscape
   type: register
   channel: standard-directory
-  evidence: https://github.com/cncf/landscape/blob/3a7d378b1824b82e729a453bb03fa6f1e37557e1/landscape.yml
+  evidence: https://github.com/cncf/landscape/blob/42dd4cd91dad8ec8558ac02467a43f0805b9957a/landscape.yml
   source: edge
   relationship: standard-participant
   contract_reference:
-    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @3a7d378b18)
+    register: CNCF Cloud Native Landscape (github.com/cncf/landscape landscape.yml @42dd4cd91d)
     spec_file: null
     standard: Cloud Native (CNCF)
     role: cncf-project-host
@@ -60,7 +60,7 @@
     signal_note: 'participation only: a landscape listing is standard-participant evidence, not depth. Entries,
       categories, tier and projects are CONTEXT, never read (breadth is not credit)'
     detected_by: sweep-cloud-native.py
-    detected: '2026-10-15'
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
 - slug: kgateway-kubernetes-gateway-api-conformance
@@ -70,11 +70,11 @@
   category: Gateway API conformance
   type: register
   channel: standard-directory
-  evidence: https://github.com/kubernetes-sigs/gateway-api/blob/aabc423cb84454bf0d047c0cb2ae0ca6e19fcc90/conformance/reports/v1.6/kgateway/v2.4.5-report.yaml
+  evidence: https://github.com/kubernetes-sigs/gateway-api/blob/c4c49b9c8f0361d4a476812c10a7675057ebf9e4/conformance/reports/v1.6/kgateway/v2.4.5-report.yaml
   source: edge
   relationship: standard-participant
   contract_reference:
-    register: Kubernetes Gateway API conformance reports (github.com/kubernetes-sigs/gateway-api @aabc423cb8)
+    register: Kubernetes Gateway API conformance reports (github.com/kubernetes-sigs/gateway-api @c4c49b9c8f)
     spec_file: null
     standard: Kubernetes Gateway API
     role: gateway-api-conformance
@@ -112,6 +112,6 @@
     signal_note: certified_products = one entry per conformance PROFILE with a passing core result, lapsed outside
       the current window; versions are context, never read
     detected_by: sweep-api-management.py
-    detected: '2026-10-18'
+    detected: '2026-10-19'
   status: not-a-workflow
   arazzo: null
