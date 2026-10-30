@@ -1,4 +1,4 @@
-# Kgateway (kgateway)
+# Kgateway
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,66 +66,151 @@
 
 kgateway is the most widely deployed gateway in Kubernetes for microservices and AI agents. It is a feature-rich, fast, and flexible Kubernetes-native ingress controller and next-generation API gateway built on top of Envoy proxy and the Kubernetes Gateway API.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/kgateway/refs/heads/main/apis.yml)
+**Areas:** Gateways · API Gateway
 
-## Scope
+## Kgateway on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for Kgateway is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kgateway/](https://apis.io/providers/kgateway/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (7)
 
-- Gateways
+- [Kgateway AIBackend API](https://apis.io/apis/kgateway/kgateway-aibackend-api/) — Configure AI backend providers with support for LLM providers such as OpenAI, Azure OpenAI, and Gemini. Specify provider configuration and priority groups…
+- [Kgateway Backend API](https://apis.io/apis/kgateway/kgateway-backend-api/) — Define routable backends such as AI providers (OpenAI, Azure, Gemini), AWS Lambda functions, or static servers for use by Gateways. Reference Backend…
+- [Kgateway DirectResponse API](https://apis.io/apis/kgateway/kgateway-directresponse-api/) — Configure Gateways to directly respond to incoming requests with a custom HTTP response code and body without forwarding to a backend service.
+- [Kgateway GatewayExtension API](https://apis.io/apis/kgateway/kgateway-gatewayextension-api/) — Integrate external services with a Gateway such as external auth, rate limiting, and external processing. Serves as a configuration bridge between kgateway…
+- [Kgateway GatewayParameters API](https://apis.io/apis/kgateway/kgateway-gatewayparameters-api/) — Customize gateway infrastructure deployment settings including replicas, container configuration, pod templates, and proxy provisioning parameters.
+- [Kgateway HTTPListenerPolicy API](https://apis.io/apis/kgateway/kgateway-httplistenerpolicy-api/) — Apply policies to all HTTP and HTTPS listeners defined on a Gateway. Configure listener-level settings that affect all traffic passing through the specified…
+- [Kgateway TrafficPolicy API](https://apis.io/apis/kgateway/kgateway-trafficpolicy-api/) — Attach traffic management policies to routes in an HTTPRoute resource or all routes served by a Gateway. Supports CORS, external auth, external processing,…
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-01-02
-- **Modified:** 2026-05-19
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Agentic access (1)
 
-### Kgateway Kubernetes Gateway API
+Which operations an agent can call, which act, and which need a human in the loop.
 
-The kgateway Kubernetes Gateway API provides custom resource definitions (CRDs) under the gateway.kgateway.dev/v1alpha1 API group for managing traffic policies, backends, direct responses, gateway extensions, gateway parameters, HTTP listener policies, and AI backends. kgateway is built on Envoy proxy and implements the Kubernetes Gateway API for microservices and AI agent traffic management.
+- [Kgateway Agentic Access](https://apis.io/agentic-access/kgateway/kgateway-agentic-access/)
 
-- **Human URL:** [https://kgateway.dev/docs/envoy/latest/reference/api/](https://kgateway.dev/docs/envoy/latest/reference/api/)
-- **Base URL:** `https://kubernetes.default.svc/apis/gateway.kgateway.dev/v1alpha1`
+#### JSON Schema (7)
 
-#### Tags
+The data models the API reads and writes.
 
-- AI Gateway
-- API Gateway
-- Envoy
-- Gateways
-- Kubernetes
-- Traffic Management
+- [kgateway AIBackend](https://apis.io/schemas/kgateway/ai-backend/)
+- [kgateway Backend](https://apis.io/schemas/kgateway/backend/)
+- [kgateway DirectResponse](https://apis.io/schemas/kgateway/direct-response/)
+- [kgateway GatewayExtension](https://apis.io/schemas/kgateway/gateway-extension/)
+- [kgateway GatewayParameters](https://apis.io/schemas/kgateway/gateway-parameters/)
+- [kgateway HTTPListenerPolicy](https://apis.io/schemas/kgateway/http-listener-policy/)
+- [kgateway TrafficPolicy](https://apis.io/schemas/kgateway/traffic-policy/)
 
-#### Properties
+#### JSON-LD (1)
 
-- [Documentation](https://kgateway.dev/docs/envoy/latest/reference/api/)
-- [OpenAPI](openapi/kgateway-kubernetes-gateway-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/kgateway-kubernetes-gateway-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/kgateway-kubernetes-gateway-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [JSON Schema](json-schema/traffic-policy.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/backend.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/direct-response.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gateway-extension.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/gateway-parameters.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/http-listener-policy.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/ai-backend.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/kgateway-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+Linked-data contexts for the provider's vocabulary.
 
-## Common Properties
+- [Kgateway Context](https://apis.io/jsonld/kgateway/kgateway-context/)
 
-- [LinkedIn](https://www.linkedin.com/company/kgateway)
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [kgateway Kubernetes Gateway AIBackend API](https://apis.io/collections/kgateway/open-kgateway-aibackend-api/)
+- [kgateway Kubernetes Gateway AIBackend Backend API](https://apis.io/collections/kgateway/open-kgateway-backend-api/)
+- [kgateway Kubernetes Gateway AIBackend DirectResponse API](https://apis.io/collections/kgateway/open-kgateway-directresponse-api/)
+- [kgateway Kubernetes Gateway AIBackend GatewayExtension API](https://apis.io/collections/kgateway/open-kgateway-gatewayextension-api/)
+- [kgateway Kubernetes Gateway AIBackend GatewayParameters API](https://apis.io/collections/kgateway/open-kgateway-gatewayparameters-api/)
+- [kgateway Kubernetes Gateway AIBackend HTTPListenerPolicy API](https://apis.io/collections/kgateway/open-kgateway-httplistenerpolicy-api/)
+- [kgateway Kubernetes Gateway API](https://apis.io/collections/kgateway/open-kgateway-kubernetes-gateway-api/)
+- [kgateway Kubernetes Gateway AIBackend TrafficPolicy API](https://apis.io/collections/kgateway/open-kgateway-trafficpolicy-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Kgateway — jsonschema rules](https://apis.io/rules/kgateway/kgateway-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kgateway Authentication](https://apis.io/security/kgateway/kgateway-authentication/)
+- [Kgateway Domain Security](https://apis.io/security/kgateway/kgateway-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kgateway Plans Pricing](https://apis.io/plans/kgateway/kgateway-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kgateway Rate Limits](https://apis.io/rate-limits/kgateway/kgateway-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Kgateway Finops](https://apis.io/finops/kgateway/kgateway-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://kgateway.dev/)
-- [Videos](https://kgateway.dev/resources/videos/)
-- [Blog](https://kgateway.dev/blog/)
 - [Documentation](https://kgateway.dev/docs/envoy/latest/)
-- [Git Hub](https://github.com/kgateway-dev/kgateway)
+- [Blog](https://kgateway.dev/blog/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 57.1 |
+| Contract quality | 57.9 |
+| Contract governance | 9.8 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kgateway/](https://apis.io/providers/kgateway/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kgateway: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kgateway/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
